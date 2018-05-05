@@ -1,0 +1,27 @@
+\section{Data Types}
+
+There are only two types of data structures that are used in the blockchain system: transactions and blocks. They are published and received by nodes continuously. A transaction contains information that is used in the blockchain system, and a block contains a number of transactions that are mined by a miner. The properties of transactions and blocks are described in the following tables.
+
+For transactions, the reward and privilege properties are related to the mining strategies. Miners can set the minimum value of transactions that are qualified to be mined. The value of a transaction is the sum of the reward and the privilege. The reward is assigned to the miner as a motivation. The privilege is 0 when a transaction is created, and it is added if the transaction is not selected to be mined during the mining activities. That is, the privilege prevents transactions from starvation.
+
+For blocks, the layer and color properties are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the visualization of the structures of blockchains between different nodes is the same. The color distinguishes the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner and vice versa.
+
+\section{Nodes}
+
+In the blockchain system, there are three types of nodes that communicate with each other. The first is the transaction generator, which is unique in the blockchain system. It is responsible for generating and publishing transactions to miners. Miners are the second type of nodes in the blockchain system. They are the most important nodes in the visualization because they mine blocks according to their individual mining strategies. The other nodes are nonminers, which only receive blocks from miners and publishes blocks to their neighbors.
+
+Each miner has their own transaction pools which contain all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
+
+The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the delays of the unstable network between different nodes, and the visualization of the difference between blockchain data structures is the main feature of our application.
+
+The relationships of different types of nodes are shown in Figure 2. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines and publishes a block, other miners and nonminers will publish the received block to their neighbors.
+
+\section{Unstable Networks}
+
+The networks between each node are unstable due to the peer-to-peer networks. Therefore, the publishes of transactions and blocks suffer delays. Because of the unstable network, forks happen in the visualization of the blockchains while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
+
+\section{Mining Strategies}
+
+Every miner has different mining strategies. There are four parameters that are related to the mining strategies. The first is the amount of time that a miner should spend on mining. It represents the computing power of a miner. The second is the minimum value of transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block. The third is the number of transactions in a block. That is, it is the size of a block. The sizes of blocks are always the same for the same miner. The fourth is the minimum number of pending transactions in the transaction pools. It prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
+
+The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization.

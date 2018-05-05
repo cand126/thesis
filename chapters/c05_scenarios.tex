@@ -1,0 +1,16 @@
+\section{A Fast Miner}
+
+In the first scenario, there is a fast miner who mines blocks much quicker than the other miners because of the mining strategy. With the low delays of networks, the fast miner can publish the blocks quickly. Therefore, none of the other miners can compete with the fast miner, i.e., only the fast miner can add blocks to the blockchain.
+
+In Figure 4, Alice (red color) is the fast miner. It demonstrates that other miners (Bob and Charlie) have little chances to add blocks to the blockchain. Even if they tried to mine a block, the block is orphaned in the further steps.
+
+\section{Multiple Forks}
+
+In the second scenario, there are multiple miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delays, miners add their own blocks on the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues.
+
+In Figure 5, Alice, Bob, and Charlie compete with each other for a long time because the time of mining is shorter than the time of publishing blocks. In this case, the miners are divided into three groups which work on different blockchains. It demonstrates that the visualization application handles the forks correctly. Additionally, the numbers of forks are shown at the top of each fork. However, the forks cannot be merged in the current implementation because the parameters are fixed during the visualization.
+
+\section{Limitation of Nodes and Transactions}
+
+Through experiments, we found that the maximum number of nodes that can be handled by the application is 15 because of the limitation of the visualization engine. On the other hand, the number of transactions that can be handled should be unlimited. We tested it by publishing 100 transactions, and the application still operates correctly.
+

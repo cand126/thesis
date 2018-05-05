@@ -1,5 +1,6 @@
-\documentclass[12pt,twoside]{report}
+\documentclass[12pt,twoside,openright]{report}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
 
@@ -37,6 +38,10 @@
 % images
 \usepackage{graphicx}
 \graphicspath{ {images/} }
+\usepackage{array}
+
+% bibliography
+\usepackage[nottoc]{tocbibind}
 
 % hyperlinks
 \usepackage{hyperref}
@@ -64,37 +69,41 @@
 \cleardoublepage
 
 \tableofcontents
-\cleardoublepage
 
-\pagenumbering{arabic}
+\listoffigures
+ 
+\listoftables
+
+
 \chapter{Introduction}
+\pagenumbering{arabic}
 \input{chapters/c01_introduction}
-\cleardoublepage
 
 \chapter{Related Works}
 \input{chapters/c02_related_works}
-\cleardoublepage
 
 \chapter{Blockchain System}
 \input{chapters/c03_blockchain_system}
-\cleardoublepage
 
 \chapter{Implementation}
 \input{chapters/c04_implementation}
-\cleardoublepage
 
 \chapter{Scenarios}
 \input{chapters/c05_scenarios}
-\cleardoublepage
 
 \chapter{Conclusion}
 \input{chapters/c06_conclusion}
-\cleardoublepage
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 
 \appendix
 \chapter{Source Codes}
 \input{appendices/a01_source_codes}
-\cleardoublepage
+
+\appendix
+\chapter{Sample of Configuration Files}
+\input{appendices/a02_configuration_files}
 
 \end{document}
 

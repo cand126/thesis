@@ -1,0 +1,33 @@
+\section{Architecture}
+
+Figure 3 shows the whole architecture of the application. The architecture contains a web app and a server, and they are connected through WebSocket. The WebSocket technology makes the real-time communications between the web app and the server possible.
+
+The server is composed of three components, a blockchain system, a simulator, and a watchdog. The blockchain system is based on a web-based multi-agent system framework called Eve \cite{eve}. Eve is a simple multi-agent system framework which is implemented in JavaScript, and it is easy to learn. Moreover, it provides reliable communications between agents with JSON-RPC protocols. The server is built in Node.js with Express framework because it is the same programming language as the multi-agent system framework. During the runtime, a transaction generator, miners, and nonminers are instantiated, and they communicate with each other through the multi-agent system. Creations and deletions of nodes are also possible. The simulator is responsible for receiving data from the client side and controlling the blockchain system. When the blockchain data structures change in the blockchain system, the watchdog will catch these changes, and send them to the web app. 
+
+The web app is responsible for the visualization and the interactions with users. It has a visualizer, which is responsible for rendering the visualization of blockchains when it is notified by the watchdog. The visualizer receives the data of transactions and blocks from the server and renders them appropriately on the HTML documents. The visualization is based on Three.js, a JavaScript framework for rendering graphics. When the user interacts with our web app, e.g., updating the parameters, the data will be sent to the server immediately.
+
+\section{Simulator}
+
+The simulator is responsible for controlling the blockchain system and handling the requests from the client. It is unique in the whole system, so it observes to the singleton pattern.
+
+When the system starts, the simulator initializes the status of the blockchain system, i.e., it instantiates nodes according to the configuration. When the user wants to change the parameters of mining strategies, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a robust interface.
+
+\section{Watchdog}
+
+The watchdog is responsible for monitoring the behaviors of nodes and notifying the visualizer when the data should be updated. It watches three kinds of data in the blockchain system: the blockchain data structures, the status of transaction pools, and the status of mining of each node. The visualizer receives these data in real-time through WebSocket. Therefore, it is guaranteed that the visualization of the data is synchronized with the blockchain system all the time.
+
+\section{Visualizer}
+
+The visualizer is responsible rendering the data that are sent from the watchdog. For transaction pools, there are status bars that display the level of capacities of them. There are also status bars for mining status, which reflects when the mining activities will be finished. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The visualization is dynamic as the mining activities are in progress.
+
+\section{Algorithms}
+
+The mining algorithm determines the most important part of the blockchain system. Miners generate blocks by following the logic of the mining algorithm, but with different parameters that are defined in their own mining strategies. To start mining a block, miners must select a set of pending transactions from their own transaction pools. There are two cases when selecting transactions. If the transaction pool contains too much number of transactions, then the miner ignores the parameter of the minimum value of transactions and selects a set of transactions with the highest values. On the other hand, the miner selects a set of transactions which values are higher than the minimum value of transactions. After the selection of transactions, if the number of selected transactions satisfies the number of transactions that should be included in a block, then the miner will start mining.
+
+Another important algorithm is about the consensus protocol. The algorithm of the consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. Therefore, it is only responsible for resolving the longest blockchain. When a node receives a block from other nodes, this algorithm is triggered. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
+
+\section{Configuration Files}
+
+To replay the same visualization of blockchain processes, we can define the configuration of the blockchain system in a file and upload it to the application. The configuration file is composed of three parts: the properties and the parameters of mining strategies of nodes, the delays of networks between each node, and the transactions that will be published through the network. The file is in JSON format, and the file is uploaded to initialize the blockchain system at the beginning.
+
+First, for nodes, it is important to define a unique transaction generator at first, and then it is followed by miners and nonminers. After that, a list of delays between each node is defined. As mentioned before, the transaction generator only connects to miners, and miners and nonminers connect with each other. In the last part, it contains a list of transactions with rewards and the time when the transaction will be published after the starting of the blockchain system.
