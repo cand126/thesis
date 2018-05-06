@@ -122,7 +122,27 @@ The relationship of different types of nodes is shown in figure \ref{fig:relatio
 
 \section{Unstable Networks}
 
-The networks between each node are unstable due to the peer-to-peer networks. Therefore, the publishes of transactions and blocks suffer delays. Because of the unstable network, forks happen in the visualization of the blockchains while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
+The networks between each node are unstable due to the characteristic of peer-to-peer networks. Therefore, the publishes of transactions and blocks suffer delays. Because of the unstable network, forks happen in the visualization of the blockchains while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
+
+\begin{figure}[htb]
+    \centering
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{blockchain_delays1}
+        \caption{Group 1}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{blockchain_delays2}
+        \caption{Group 2}
+    \end{subfigure}
+
+    \caption{Groups of Miners.}
+    \label{fig:groups of miners}
+\end{figure}
+
+For example, in figure \ref{fig:groups of miners}, there are two groups of miners, and they are partitioned because different groups suffer high delays between each other, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest.
 
 \section{Mining Strategies}
 
