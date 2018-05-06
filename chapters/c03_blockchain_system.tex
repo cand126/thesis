@@ -1,8 +1,51 @@
+Before continuing to the visualization part, it is worth to define the blockchain system that we refer to. Because the research of blockchain technology is still in progress, there are different methods and approaches used to construct a blockchain system. In this chapter, we introduce the ideas of the blockchain system that serves as the basis of the visualization.
+
 \section{Data Types}
 
-There are only two types of data structures that are used in the blockchain system: transactions and blocks. They are published and received by nodes continuously. A transaction contains information that is used in the blockchain system, and a block contains a number of transactions that are mined by a miner. The properties of transactions and blocks are described in the following tables.
+There are only two types of data structures that are used in the blockchain system: \textit{transactions} and \textit{blocks}. They are published and received by nodes continuously in the same blockchain network. A transaction contains information that is used in the blockchain system, such as a trade of cryptocurrecy or a shopping item. A block contains a number of transactions that are mined by a miner, and blocks are chained together to form a tree structure that represents the data structure of the blockchain. The transactions that are included in a block are considered to be confirmed if the block is at the longest blockchain.
 
-For transactions, the reward and privilege properties are related to the mining strategies. Miners can set the minimum value of transactions that are qualified to be mined. The value of a transaction is the sum of the reward and the privilege. The reward is assigned to the miner as a motivation. The privilege is 0 when a transaction is created, and it is added if the transaction is not selected to be mined during the mining activities. That is, the privilege prevents transactions from starvation.
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{ M{2cm}|m{8cm} } 
+        \hline
+        \multicolumn{2}{c}{\textbf{Transaction}} \\
+        \hline
+        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+        \hline
+        id & the hash value of the transaction. \\ 
+        type & is always “transaction”. \\ 
+        timestamp & the time that the transaction is created. \\ 
+        reward & the number of rewards that the miner will receive. \\ 
+        privilege & to prevent the starvation of the transaction. \\ 
+        \hline
+    \end{tabular}
+    \caption{Properties of Transactions.}
+    \label{tab:properties of transactions}
+\end{table}
+
+For transactions (Table \ref{tab:properties of transactions}), the reward and privilege properties are related to the mining strategies. Miners can set the minimum value of transactions that are qualified to be mined. The value of a transaction is the sum of the reward and the privilege. The reward is assigned to the miner as a motivation. The privilege is 0 when a transaction is created, and it is added if the transaction is not selected to be mined during the mining activities. That is, the privilege prevents transactions from starvation.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{ M{2cm}|m{8cm} } 
+        \hline
+        \multicolumn{2}{c}{\textbf{Block}} \\
+        \hline
+        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+        \hline
+        id & the hash value of the block. \\ 
+        type & is always “block”. \\ 
+        timestamp & the time that the block is created. \\ 
+        miner & the public address of the miner. \\ 
+        previous & the hash value of the previous block. \\ 
+        layer & indicates the position of the block in the blockchain. \\ 
+        color & the color of the block. \\ 
+        transactions & an array of transactions. \\ 
+        \hline
+    \end{tabular}
+    \caption{Properties of Blocks.}
+    \label{tab:properties of blocks}
+\end{table}
 
 For blocks, the layer and color properties are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the visualization of the structures of blockchains between different nodes is the same. The color distinguishes the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner and vice versa.
 
@@ -25,3 +68,5 @@ The networks between each node are unstable due to the peer-to-peer networks. Th
 Every miner has different mining strategies. There are four parameters that are related to the mining strategies. The first is the amount of time that a miner should spend on mining. It represents the computing power of a miner. The second is the minimum value of transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block. The third is the number of transactions in a block. That is, it is the size of a block. The sizes of blocks are always the same for the same miner. The fourth is the minimum number of pending transactions in the transaction pools. It prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
 
 The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization.
+
+\section{Consensus Protocols}
