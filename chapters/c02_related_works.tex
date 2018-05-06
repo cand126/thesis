@@ -1,12 +1,28 @@
-\section{Visualization of Bitcoin}
+Since blockchain technology is proposed, different methods are experimented for visualization. As Bitcoin is the first and main blockchain network in the world and the data can be accessed publicly, much literature uses it as a research platform. Generally, there are three categories of related works for the visualization of a blockchain system.
+\begin{itemize}
+    \item \textbf{Visualization of Blockchains} \\
+        There are a lot of online visualization tools which can visualize the static information of transactions and blocks on a blockchain system. They display the information in detail and provide it as the base for analysis.
+    \item \textbf{Analysis of Transactions} \\
+        As Bitcoin becomes a popular peer-to-peer network recently, most of the recent literature focuses on the analysis of the relationships between transactions and blocks in Bitcoin network. They try to recognize special patterns to gain ecnomic experience and prevent criminal activities.
+    \item \textbf{Analysis of Consensus Protocols} \\
+        An analysis of the consensus protocols on the blockchain networks is an interesting topic as it can reveal the potential applications on blockchain platforms.
+\end{itemize}
+
+\section{Visualization of Blockchains}
+
+There are some online tools and applications that provide visualization of the static status of transactions and blocks in Bitcoin. Tri A. Sundara et al. \cite{Sundara2017} summarized 8 visualization applications and compared their visualization methods and technologies. We shortly reivew these applications here, so the main difference of our application and them can be identified clearly.
+
+Bitbonkers \cite{bitbonkers} rendered a live 3D animation of transactions and blocks. Balls represented transactions, and they kept dropping down to the plate from the top. On the other hand, cubics represented blocks. The sizes of balls are different according to their values. Bitnodes \cite{bitnodes} focused on the visualization of the distribution of nodes on Bitcoin network. BitcoinCity \cite{bitcoincity} was a cute visualization of Bitcoin. It used a road to chain the blocks, and the houses with different heights on the both sides of the road represented transactions. Blockseer \cite{blockseer} visualized the detailed information of accounts, transactions or blocks with tree structures. DailyBlockchain \cite{dailyblockchain} displayed the spread of dynamic and live Bitcoin network. Elliptic \cite{elliptic} visualized the whole history of Bitcoin like the Big Bang of the universe. Interaqt \cite{interaqt} rendered the Bitcoin transactions as circles. Live Globe \cite{liveglobe} combined the geographies of blocks and the earth together in the visualization.
+
+\section{Analysis of Transactions}
 
 Most of the visualization tools of Bitcoin are focused on the analysis of the relationships between transactions in time series. Giuseppe Di Battista et al. \cite{Battista2015} provided a visualization tool called BitConeView that analyzed the flows of bitcoins in the transactions by timestamps. It can be used to analyze the patterns of the flows of bitcoins and locate tainted transactions. To prevent the criminal activities and illegal behaviors that abuse the services of Bitcoin, Hiroki Kuzuno et al. \cite{Kuzuno2017} proposed an analyzing system which managed the data and statistics of blockchains for the usages of law enforcement investigation and training. Dan McGinn et al. \cite{McGinn2016} focused on visualizing transactions of Bitcoin from the top-down viewpoint. The visualization of the large scale of data provided domain experts and the general public a tool to analyze and identify the transaction patterns with big data visualization methods. The visual analytics tool that was proposed by Loïs Saublet \cite{Saublet2015} enabled economists to analyze the metrics and actors in Bitcoin and provided good user experience by working together with end users.
 
-There are some tools and applications that provide visualization of the static status of transactions and blocks in Bitcoin. Tri A. Sundara et al. \cite{Sundara2017} summarized 8 visualization applications and compared their visualization methods and technologies.
+
 
 In short conclusion, the goals of the above tools and applications were to analyze the patterns and relationships of transactions and blocks. Thus, they tended to provide the static information and statistics instead of the dynamic mining processes that happen in a blockchain system. To focus on the dynamic mining activities, our tool provides a clear, real-time visualization of mining processes that cannot be achieved by the above analysis tools.
 
-\section{Analysis of Proof-of-Work}
+\section{Analysis of Consensus Protocols}
 
 To analyze the network conditions of the proof-of-work based blockchain system, Amitai Porat et al. \cite{Porat} provided an application that was based on Ethereum platform. It simulated the asynchronous mining activities and network latency and provided a real-time analysis of the blockchain system.
 
