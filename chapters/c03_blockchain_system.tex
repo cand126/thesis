@@ -159,6 +159,10 @@ Every miner has different mining strategies. There are four parameters that infl
         Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
 \end{itemize}
 
-The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the minig activities can be found in section \ref{algorithms}.
+The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the mining activities can be found in section \ref{algorithms}.
 
 \section{Consensus Protocols}
+
+The consensus protocol that is applied in the blockchain system is proof-of-work. Under proof-of-work protocol, miners solve mathematical puzzles with their computing power. By comparing the blockchain data structures between each node, the longest blockchain can be identified easily. Miners always switch to the longest blockchain as soon as possible to ensure that they are working on the correct fork of blockchains. Additionally, miners only get rewards by adding blocks to the correct blockchain.
+
+The parameters of the mining strategies are designed for proof-of-work protocol. Therefore, the parameters will be entirely different if the applied consensus protocol is changed, e.g., proof-of-stake, in the future.
