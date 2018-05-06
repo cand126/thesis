@@ -2,7 +2,7 @@ Before continuing to the visualization part, it is worth to define the blockchai
 
 \section{Data Types}
 
-There are only two types of data structures that are used in the blockchain system: \textit{transactions} and \textit{blocks}. They are published and received by nodes continuously in the same blockchain network. A transaction contains information that is used in the blockchain system, such as a trade of cryptocurrecy or a shopping item. A block contains a number of transactions that are mined by a miner, and blocks are chained together to form a tree structure that represents the data structure of the blockchain. The transactions that are included in a block are considered to be confirmed if the block is at the longest blockchain.
+There are only two types of data structures that are used in the blockchain system: \textit{transactions} and \textit{blocks}. They are published and received by nodes continuously in the same blockchain network. A transaction contains information that is used in the blockchain system, such as a trade of cryptocurrecy or a shopping item. A block contains a number of transactions that are mined by a miner, and blocks are chained together to form a tree structure that represents the blockchain data structure. The transactions that are included in a block are considered to be confirmed if the block is at the longest blockchain.
 
 \begin{table}[htb]
     \centering
@@ -12,7 +12,7 @@ There are only two types of data structures that are used in the blockchain syst
         \hline
         \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
         \hline
-        id & the hash value of the transaction. \\ 
+        ID & the hash value of the transaction. \\ 
         type & is always “transaction”. \\ 
         timestamp & the time that the transaction is created. \\ 
         reward & the number of rewards that the miner will receive. \\ 
@@ -23,7 +23,33 @@ There are only two types of data structures that are used in the blockchain syst
     \label{tab:properties of transactions}
 \end{table}
 
-For transactions (Table \ref{tab:properties of transactions}), the reward and privilege properties are related to the mining strategies. Miners can set the minimum value of transactions that are qualified to be mined. The value of a transaction is the sum of the reward and the privilege. The reward is assigned to the miner as a motivation. The privilege is 0 when a transaction is created, and it is added if the transaction is not selected to be mined during the mining activities. That is, the privilege prevents transactions from starvation.
+For transactions (Table \ref{tab:properties of transactions}), the properties contain the ID, the type, the timestamp, the reward, and the privilege. The ID represents the hash value of the transaction in a blockchain system. Here we use 8 random characters and digits to simplify the representation. The type indicates that the data is a valid transaction data structure. The timestamp is decided at the time the transaction is created. 
+
+The reward and the privilege are related to the mining strategies. The \textit{value} of a transaction is the sum of the reward and the privilege, as the equation \ref{eq:transaction value} states.
+
+\begin{equation} \label{eq:transaction value}
+    value = reward + privilege
+\end{equation}
+
+Miners can set the minimum value of transactions that are qualified to be mined. The reward is the number of money that will be assigned to the miner as a motivation because miners solve puzzles in a proof-of-work based blockchain system. The privilege is set to 0 when a transaction is created, and it is added by a sepcific number if the transaction is not selected to be mined each time during the mining activities. That is, the privilege prevents the transaction from starvation, i.e., the transaction will not have chance to be mined because of its low reward.
+
+To explain the value of transactions clearly, suppose that a transaction with reward of 5 was generated and published, and a miner, Alice, received this transaction. At this time, Alice set the privilege of this transaction to 0. Now the total value of this transaction is 
+
+\begin{gather*}
+    reward = 5 \\
+    privilege = 0 \\
+    value = reward + privilege = 5 + 0 = 5
+\end{gather*}
+
+Assume that Alice decides to mine a block, but she does not select this transaction as one of the candidates because Alice expects that the minimum value of transactions should be 6. Therefore, the privilege of this transaction is added by a sepcific number (1 in this example). Now the value of this transaction is
+
+\begin{gather*}
+    reward = 5 \\
+    privilege = 1 \\
+    value = reward + privilege = 5 + 1 = 6
+\end{gather*}
+
+Thus, when Alice decides to mine a block next time, she will select this transaction as one of the candidates because the value of this transaction is not less than 6. It demonstrates that the privilege prevents this transaction from starvation. Actually, we design this mechanism because a transaction should not be ignored forever in a real blockchain system such as Bitcoin, even if the reward of the transaction is very low.
 
 \begin{table}[htb]
     \centering
@@ -33,7 +59,7 @@ For transactions (Table \ref{tab:properties of transactions}), the reward and pr
         \hline
         \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
         \hline
-        id & the hash value of the block. \\ 
+        ID & the hash value of the block. \\ 
         type & is always “block”. \\ 
         timestamp & the time that the block is created. \\ 
         miner & the public address of the miner. \\ 
@@ -47,7 +73,29 @@ For transactions (Table \ref{tab:properties of transactions}), the reward and pr
     \label{tab:properties of blocks}
 \end{table}
 
-For blocks, the layer and color properties are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the visualization of the structures of blockchains between different nodes is the same. The color distinguishes the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner and vice versa.
+For blocks (Table \ref{tab:properties of blocks}), the properties contain the ID, the type, the timestamp, the miner, the previous, the layer, the color, and the transactions. The ID represents the hash value of the block in a blockchain system. Here we use also 8 random characters and digits as the hash value. The type indicates that the data is a valid block data structure. The timestamp is decided at the time the block is created. The miner represents the public address of the miner who mined this block, and it is a 8 random characters and digits. The previous contains the ID of the previous block that is chained in the same blockchain. The transactions includes an array of transactions, and the total reward of the block is the sum of these transactions.
+
+The layer and color are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the visualization of the structures of blockchains between different nodes is the same. The color distinguishes the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner and vice versa.
+
+\begin{figure}[htb]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{blockchain_block1}
+        \caption{Alice's blockchain}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{blockchain_block2}
+        \caption{Bob's blockchain}
+    \end{subfigure}
+
+    \caption{Visualization of Blocks}
+    \label{fig:visualization of blocks}
+\end{figure}
+
+To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to Figure \ref{fig:visualization of blocks}, Alice and Bob mined two block individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The number of layers of the blocks are indicated on the top of the figures. In each layer, the number of different color of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain data structures are the same between every node.
 
 \section{Nodes}
 
