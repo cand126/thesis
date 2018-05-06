@@ -101,11 +101,11 @@ To illustrate the positions of blocks in the visualization, suppose that there a
 
 In the blockchain system, there are three types of nodes that communicate with each other. 
 \begin{itemize}
-    \item \textbf{Transaction Generator}
+    \item \textbf{Transaction Generator} \\
         The transaction generator is unique in the blockchain system. It is responsible for generating and publishing transactions to miners.
-    \item \textbf{Miner}
+    \item \textbf{Miner} \\
         Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has their own transaction pools which contain all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
-    \item \textbf{Nonminer}
+    \item \textbf{Nonminer} \\
         Nonminers only receive blocks from miners and publishes blocks to their neighbors.
 \end{itemize}
 
@@ -146,8 +146,19 @@ For example, in figure \ref{fig:groups of miners}, there are two groups of miner
 
 \section{Mining Strategies}
 
-Every miner has different mining strategies. There are four parameters that are related to the mining strategies. The first is the amount of time that a miner should spend on mining. It represents the computing power of a miner. The second is the minimum value of transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block. The third is the number of transactions in a block. That is, it is the size of a block. The sizes of blocks are always the same for the same miner. The fourth is the minimum number of pending transactions in the transaction pools. It prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
+Every miner has different mining strategies. There are four parameters that influence the mining strategies and mining activities. 
 
-The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization.
+\begin{itemize}
+    \item \textbf{Mining Time} \\
+        A miner needs a period of time to mine a block by solving the puzzles. Thus, this parameter reflects the computing power of miners and the difficulty of puzzles.
+    \item \textbf{Minimum Value of Transactions} \\
+        This parameter is used to select a set of candidate transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block.
+    \item \textbf{Fixed Number of Transactions in Blocks} \\
+        This parameter is the size of a block. The sizes of blocks are always the same for the same miner.
+    \item \textbf{Minimum Number of Pending Transactions} \\
+        Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
+\end{itemize}
+
+The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the minig activities can be found in section \ref{algorithms}.
 
 \section{Consensus Protocols}
