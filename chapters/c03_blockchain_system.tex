@@ -91,21 +91,34 @@ The layer and color are useful for the visualization of the blockchains. The lay
         \caption{Bob's blockchain}
     \end{subfigure}
 
-    \caption{Visualization of Blocks}
+    \caption{Visualization of Blocks.}
     \label{fig:visualization of blocks}
 \end{figure}
 
-To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to Figure \ref{fig:visualization of blocks}, Alice and Bob mined two block individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The number of layers of the blocks are indicated on the top of the figures. In each layer, the number of different color of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain data structures are the same between every node.
+To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to figure \ref{fig:visualization of blocks}, Alice and Bob mined two block individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The number of layers of the blocks are indicated on the top of the figures. In each layer, the number of different color of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain data structures are the same between every node.
 
 \section{Nodes}
 
-In the blockchain system, there are three types of nodes that communicate with each other. The first is the transaction generator, which is unique in the blockchain system. It is responsible for generating and publishing transactions to miners. Miners are the second type of nodes in the blockchain system. They are the most important nodes in the visualization because they mine blocks according to their individual mining strategies. The other nodes are nonminers, which only receive blocks from miners and publishes blocks to their neighbors.
+In the blockchain system, there are three types of nodes that communicate with each other. 
+\begin{itemize}
+    \item \textbf{Transaction Generator}
+        The transaction generator is unique in the blockchain system. It is responsible for generating and publishing transactions to miners.
+    \item \textbf{Miner}
+        Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has their own transaction pools which contain all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
+    \item \textbf{Nonminer}
+        Nonminers only receive blocks from miners and publishes blocks to their neighbors.
+\end{itemize}
 
-Each miner has their own transaction pools which contain all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
+The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the delays of the unstable network between different nodes, and the visualization of the different blockchain data structures is the main feature of our application. For example, figure \ref{fig:visualization of blocks} shows the difference between Alice's and Bob's blockchain data structures.
 
-The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the delays of the unstable network between different nodes, and the visualization of the difference between blockchain data structures is the main feature of our application.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{blockchain_nodes}
+    \caption{Relationships of Nodes.}
+    \label{fig:relationship of nodes}
+\end{figure}
 
-The relationships of different types of nodes are shown in Figure 2. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines and publishes a block, other miners and nonminers will publish the received block to their neighbors.
+The relationship of different types of nodes is shown in figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discards the block to prevent sending and receiving the same block repeatedly.
 
 \section{Unstable Networks}
 
