@@ -4,6 +4,7 @@
 \usepackage[english]{babel}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
 
+% paragraph
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
@@ -50,6 +51,38 @@
 
 % equations
 \usepackage{amsmath}
+
+% code
+\usepackage{listings}
+\lstdefinelanguage{JavaScript}{
+    keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={class, export, boolean, throw, implements, import, this},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+\lstset{
+    language=JavaScript,
+    backgroundcolor=\color{lightgray},
+    extendedchars=true,
+    basicstyle=\footnotesize\ttfamily,
+    showstringspaces=false,
+    showspaces=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    numbersep=9pt,
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    captionpos=b
+}
 
 % bibliography
 \usepackage[nottoc]{tocbibind}

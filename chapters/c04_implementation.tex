@@ -94,7 +94,14 @@ The visualizer expresses fantastic blockchain visualization that is able to attr
 
 \section{UML Diagrams}
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{impl_uml}
+    \caption{Class Diagram.}
+    \label{fig:class diagram}
+\end{figure}
 
+In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} defines the common properties and methods of class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer}, and because it is abstract, it is not allowed to instantiate from \texttt{AbstractNode}. In contrast, we can instantiate objects from the children of \texttt{AbstractNode}, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}.
 
 \section{Algorithms}
 \label{algorithms}
