@@ -1,20 +1,78 @@
+In this chapter, 
+
 \section{Architecture}
 
-Figure 3 shows the whole architecture of the application. The architecture contains a web app and a server, and they are connected through WebSocket. The WebSocket technology makes the real-time communications between the web app and the server possible.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{impl_architecture}
+    \caption{Architecture.}
+    \label{fig:architecture}
+\end{figure}
 
-The server is composed of three components, a blockchain system, a simulator, and a watchdog. The blockchain system is based on a web-based multi-agent system framework called Eve \cite{eve}. Eve is a simple multi-agent system framework which is implemented in JavaScript, and it is easy to learn. Moreover, it provides reliable communications between agents with JSON-RPC protocols. The server is built in Node.js with Express framework because it is the same programming language as the multi-agent system framework. During the runtime, a transaction generator, miners, and nonminers are instantiated, and they communicate with each other through the multi-agent system. Creations and deletions of nodes are also possible. The simulator is responsible for receiving data from the client side and controlling the blockchain system. When the blockchain data structures change in the blockchain system, the watchdog will catch these changes, and send them to the web app. 
+Figure \ref{fig:architecture} shows the whole architecture of the visualization application. The architecture contains a web app and a server, which are connected with WebSocket. WebSocket technology makes the real-time communications between the web app and the server possible, as the visualization of the real-time mining processes is necessary. The user can interact with the web application through the graphical user interface.
 
-The web app is responsible for the visualization and the interactions with users. It has a visualizer, which is responsible for rendering the visualization of blockchains when it is notified by the watchdog. The visualizer receives the data of transactions and blocks from the server and renders them appropriately on the HTML documents. The visualization is based on Three.js, a JavaScript framework for rendering graphics. When the user interacts with our web app, e.g., updating the parameters, the data will be sent to the server immediately.
+The server maintains the blockchain system. It is composed of three components.
+
+\begin{itemize}
+    \item \textbf{Blockchain System} \\
+        The blockchain system is based on a multi-agent system. It cointains a transaction generator, multiple miners, and multiple nonminers. The multi-agent system provides communications for these nodes.
+    \item \textbf{Simulator} \\
+        The simulator is responsible for receiving data from the client side and controlling the blockchain system.
+    \item \textbf{Watchdog} \\
+        When the blockchain data structures change in the blockchain system, the watchdog will catch these changes, and send them to the web app. 
+\end{itemize}
+
+Since the nodes on the blockchain network can be regarded as agents on a multi-agent system, we decided to contruct the blockchain system with a multi-agent system framework. Here, We choose a web-based multi-agent system framework called Eve \cite{eve}. The main features of Eve are stated below.
+
+\begin{itemize}
+    \item \textbf{Robustness} \\
+        The agents are decoupled and can be maintained independently. Thus, the whole system is still active even an agent fails.
+    \item \textbf{Flexibility} \\
+        It is flexible to add or remove agents.
+    \item \textbf{Reduced complexity} \\
+        The complexity of the distributed software design is lower.
+    \item \textbf{Scalability} \\
+        The limitation of the number of agents does not exist, so the scalability can grow rapidly.
+\end{itemize}
+
+In addtion, Eve provides reliable communications with JSON-RPC protocols \cite{jsonrpc}. Therefore, agents can send and understand the JSON format data between each other, and they can be maintained independently in anywhere, e.g., on the cloud or desktops. Eve is an open source project which is implemented in JavaScript, and it is easy to learn. As a result, Eve allows us to construct a distributed blockchain system without worrying about the technical problems such as asynchronous and locking problems.
+
+The server is built in Node.js with Express framework because of it is based on the same programming language of Eve. During the runtime, a transaction generator, miners, and nonminers can be instantiated and destroyed at any time thanks to the flexibility of Eve.
+
+The web application is responsible for the visualization and the interactions with users. There are two components in the web application.
+
+\begin{itemize}
+    \item \textbf{Visualizer} \\
+        The visualizer is responsible for rendering the visualization of blockchains when it is notified by the watchdog. It receives the data of transactions and blocks from the server and renders them appropriately on the HTML documents.
+    \item \textbf{Graphical User Interface} \\
+        The GUI provides an index page and a settings page. The index page is for the visualization part, and the settings page displays all the defined parameters in the blockchain system. More details can be refered to \ref{}.
+\end{itemize}
+
+The visualization is based on Three.js, a JavaScript framework for rendering 2D and 3D graphics. Three.js uses WebGL as the renderer, and the updating performance is 60 frame per second. The reason to choose Three.js as the visualization framework is that it is an famous open source project, and the community is active. Moreover, Three.js provides basic shapes, e.g., squares and lines, and handles the updating of frames. Therefore, we can focus on optimize the user experience of the visualization without considering the implementation of WebGL.
 
 \section{Simulator}
 
-The simulator is responsible for controlling the blockchain system and handling the requests from the client. It is unique in the whole system, so it observes to the singleton pattern.
+The simulator is responsible for controlling the blockchain system and handling all the requests from the client. It is unique in the whole system, so it observes to the singleton pattern. The role of the simulator is like a "door" as it is the only gate to communicate with the blockchain system.
 
-When the system starts, the simulator initializes the status of the blockchain system, i.e., it instantiates nodes according to the configuration. When the user wants to change the parameters of mining strategies, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a robust interface.
+After the blockchain system starts, the simulator initializes the status of the blockchain system, i.e., it instantiates necessary nodes according to the configuration. The waiting list of transactions in the transaction generator and the blockchain data structures of miners and nonminers are initialized by the simulator. 
+
+When the user wants to change the parameters, i.e., mining strategies and delays of networks, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The data are sent through WebSocket in real-time.
+
+The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a unique and robust interface for the requests from the client. As a result, it decouples the relationship between the web application and the blockchain system. The detail of the simulator can be refer to \ref{}.
 
 \section{Watchdog}
 
-The watchdog is responsible for monitoring the behaviors of nodes and notifying the visualizer when the data should be updated. It watches three kinds of data in the blockchain system: the blockchain data structures, the status of transaction pools, and the status of mining of each node. The visualizer receives these data in real-time through WebSocket. Therefore, it is guaranteed that the visualization of the data is synchronized with the blockchain system all the time.
+The watchdog is responsible for monitoring the behaviors of nodes and notifying the visualizer when the data should be updated. It is unique in the whole system, so it also observes to the singleton pattern.
+
+The watchdog watches three kinds of data in the blockchain system.
+
+\begin{itemize}
+    \item blockchain data structures
+    \item status of transaction pools
+    \item status of mining
+\end{itemize}
+
+The visualizer receives these data in real-time through WebSocket. Therefore, it is guaranteed that the visualization of the data is synchronized with the blockchain system all the time.
 
 \section{Visualizer}
 

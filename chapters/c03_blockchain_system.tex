@@ -95,7 +95,7 @@ The layer and color are useful for the visualization of the blockchains. The lay
     \label{fig:visualization of blocks}
 \end{figure}
 
-To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to figure \ref{fig:visualization of blocks}, Alice and Bob mined two block individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The number of layers of the blocks are indicated on the top of the figures. In each layer, the number of different color of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain data structures are the same between every node.
+To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to Figure \ref{fig:visualization of blocks}, Alice and Bob mined two block individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The number of layers of the blocks are indicated on the top of the figures. In each layer, the number of different color of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain data structures are the same between every node.
 
 \section{Nodes}
 
@@ -109,7 +109,7 @@ In the blockchain system, there are three types of nodes that communicate with e
         Nonminers only receive blocks from miners and publishes blocks to their neighbors.
 \end{itemize}
 
-The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the delays of the unstable network between different nodes, and the visualization of the different blockchain data structures is the main feature of our application. For example, figure \ref{fig:visualization of blocks} shows the difference between Alice's and Bob's blockchain data structures.
+The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the delays of the unstable network between different nodes, and the visualization of the different blockchain data structures is the main feature of our application. For example, Figure \ref{fig:visualization of blocks} shows the difference between Alice's and Bob's blockchain data structures.
 
 \begin{figure}[htb]
     \centering
@@ -118,7 +118,7 @@ The blockchain data structures of different nodes are not always the same since 
     \label{fig:relationship of nodes}
 \end{figure}
 
-The relationship of different types of nodes is shown in figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discards the block to prevent sending and receiving the same block repeatedly.
+The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discards the block to prevent sending and receiving the same block repeatedly.
 
 \section{Unstable Networks}
 
@@ -142,7 +142,7 @@ The networks between each node are unstable due to the characteristic of peer-to
     \label{fig:groups of miners}
 \end{figure}
 
-For example, in figure \ref{fig:groups of miners}, there are two groups of miners, and they are partitioned because different groups suffer high delays between each other, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest.
+For example, in Figure \ref{fig:groups of miners}, there are two groups of miners, and they are partitioned because different groups suffer high delays between each other, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest.
 
 \section{Mining Strategies}
 
@@ -159,7 +159,7 @@ Every miner has different mining strategies. There are four parameters that infl
         Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
 \end{itemize}
 
-The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the mining activities can be found in section \ref{algorithms}.
+The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the mining activities can be found in Section \ref{algorithms}.
 
 \section{Consensus Protocols}
 
