@@ -120,7 +120,7 @@ The blockchain data structures of different nodes are not always the same since 
 
 The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discards the block to prevent sending and receiving the same block repeatedly.
 
-\section{Unstable Networks}
+\section{Unstable Network}
 
 The networks between each node are unstable due to the characteristic of peer-to-peer networks. Therefore, the publishes of transactions and blocks suffer delays. Because of the unstable network, forks happen in the visualization of the blockchains while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
 
@@ -144,7 +144,7 @@ The networks between each node are unstable due to the characteristic of peer-to
 
 For example, in Figure \ref{fig:groups of miners}, there are two groups of miners, and they are partitioned because different groups suffer high delays between each other, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest.
 
-\section{Mining Strategies}
+\section{Mining Strategy}
 
 Every miner has different mining strategies. There are four parameters that influence the mining strategies and mining activities. 
 
@@ -161,7 +161,7 @@ Every miner has different mining strategies. There are four parameters that infl
 
 The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the mining activities can be found in Section \ref{algorithms}.
 
-\section{Consensus Protocols}
+\section{Consensus Protocol}
 
 The consensus protocol that is applied in the blockchain system is proof-of-work. Under proof-of-work protocol, miners solve mathematical puzzles with their computing power. By comparing the blockchain data structures between each node, the longest blockchain can be identified easily. Miners always switch to the longest blockchain as soon as possible to ensure that they are working on the correct fork of blockchains. Additionally, miners only get rewards by adding blocks to the correct blockchain.
 
