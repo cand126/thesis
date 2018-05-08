@@ -94,32 +94,124 @@ The visualizer expresses fantastic blockchain visualization that is able to attr
 
 \section{UML Diagram}
 
-In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notify class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation.
+In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notify class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation. The following contains all the classes that compose the visualization application.
 
-\texttt{Agent} (Table \ref{tab:class agent}) of the multi-agent system framework, Eve, establishes the communication channel for the agents. In the implementation, the channel is opened with HTTP protocols. It makes sending and receiving transactions and blocks very simple. 
-
-Abstract class \texttt{AbstractNode} (Table \ref{tab:class abstractNode}) defines the common properties and methods of it children. \texttt{AbstractNode} is an abstract class, so it is not allowed to instantiate instances from it. In contrast, we can create nodes from the children of \texttt{AbstractNode}, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}. 
-
-Class \texttt{TransactionGenerator} (Table \ref{tab:class transactiongenerator}) is responsible for generating and publishing transactions. It should be only one transaction generator in the blockchain system. Furthermore, the neighbors of the transaction generator only contain the miners.
-
-Class \texttt{Miner} (Table \ref{tab:class miner}) is the main role in the blockchain system. It generates and publishes blocks through the blockchain network. Therefore, it controls all the mining processes in the blockchain system.
-
-Class \texttt{Nonminer} (Table \ref{tab:class nonminer}) represents common users who do not solve complex mathematical puzzles in the blockchain system. The only behavior of nonminers is to receive and publish blocks. Consequently, the miners and the nonminers connect with each other. 
-
-Class \texttt{Simulator} (Table \ref{tab:class simulator}) 
-
-Class \texttt{Watchdog} (Table \ref{tab:class watchdog}) 
-
-Class \texttt{Visualizer} (Table \ref{tab:class visualizer}) 
-
-Class \texttt{GUI} (Table \ref{tab:class gui}) 
-
-Class \texttt{Hash} (Table \ref{tab:class hash}) 
+\begin{itemize}
+    \item \textbf{Agent} (Table \ref{tab:class agent}) \\
+        \texttt{Agent} is from the multi-agent system framework, Eve. It establishes the communication channel for the agents. In the implementation, the channel is opened with HTTP protocols. It makes sending and receiving transactions and blocks very simple. 
+    \item \textbf{AbstractNode} (Table \ref{tab:class abstractNode}) \\
+        It defines the common properties and methods of its children. \texttt{AbstractNode} is an abstract class, so it is not allowed to instantiate instances from it. In contrast, we can create nodes from the children of \texttt{AbstractNode}, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}
+    \item \textbf{TransactionGenerator} (Table \ref{tab:class transactiongenerator}) \\
+        It is responsible for generating and publishing transactions. There should be only one transaction generator in the blockchain system. Furthermore, the neighbors of the transaction generator only contain the miners.
+    \item \textbf{Miner} (Table \ref{tab:class miner}) \\
+        \texttt{Miner} is the main role in the blockchain system. It generates and publishes blocks through the blockchain network. Therefore, it controls all the mining processes in the blockchain system.
+    \item \textbf{Nonminer} (Table \ref{tab:class nonminer}) \\
+        \texttt{Nonminer} represents common users who do not solve complex mathematical puzzles in the blockchain system. The only behavior of nonminers is to receive and publish blocks. Consequently, the miners and the nonminers connect with each other. 
+    \item \textbf{Simulator} (Table \ref{tab:class simulator}) \\
+        \texttt{Simulator} is the only master of the blockchain system. It is able to add and update nodes, and retrieve information from the blockchain system.
+    \item \textbf{Watchdog} (Table \ref{tab:class watchdog}) \\
+        \texttt{Watchdog} monitors the blockchain system. When a mining activity starts, it keeps notifying the visualizer until the end.
+    \item \textbf{Visualizer} (Table \ref{tab:class visualizer}) \\
+        \texttt{Visualizer} uses 3D graphical library to render the blockchain visualization. It maintains all miners' and nonminers' canvases and the mouse events which enable users to drag, zoom in, and zoom out the canvases.
+    \item \textbf{GUI} (Table \ref{tab:class gui}) \\
+        The graphical user interface is responsible for the interactions with users, including uploading files, updating the blockchain sytem, publishing transactions, and resetting the blockchain system.
+    \item \textbf{Hash} (Table \ref{tab:class hash}) \\
+        This class generates a sequence of random numbers to simulate the hash functions. It avoids to put lots of computing resources to calculate hash values.
+\end{itemize}
 
 \section{Algorithms}
 \label{algorithms}
 
+The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithms about
+
+sorted pending transaction
+
+\begin{algorithm}
+    \caption{Select Candidate Transactions}
+    \label{alg:select candidate transactions}
+\begin{algorithmic}[1]
+    \Procedure{Select Transactions}{}
+    \State candidateTransactions $\gets$ empty
+    \State
+    \If{transactionPool.length $\geq$ maximum number of pending transactions}
+        \ForAll{pending transaction}
+            \If{candidateTransactions.length $<$ \\ 
+                \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent}number of transactions to be mined}
+                \State add this transaction to candidateTransactions
+                \State remove this transaction from transaction pool
+            \Else
+                \State add the privilege of this transaction by 1
+            \EndIf
+        \EndFor
+    \ElsIf{transactionPool.length $\geq$ number of transactions to be mined}
+        \ForAll{pending transaction}
+            \State value $\gets$ reward $+$ privilege
+            \If{value $>$ minimum value of transactions \textit{AND} \\ 
+            \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent} candidateTransactions.length $<$ number of transactions to be mined}
+                \State add this transaction to candidateTransactions
+                \State remove this transaction from transaction pool
+            \Else
+                add the privilege of this transaction
+            \EndIf
+        \EndFor
+    \EndIf
+    \State
+    \If{candidateTransactions.length $=$ number of transactions to be mined}
+        \State \Call{Mine}{candidateTransactions}
+    \Else
+        \State add candidateTransactions to pending transactions
+    \EndIf
+    \State
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{Mining Algorithm}
+    \label{alg:mining algorithm}
+\begin{algorithmic}[1]
+    \Procedure{Mine}{candidateTransactions}
+    \State count $\gets$ 0
+    \State isMining $\gets$ true
+    \State
+    \Repeat 
+    \State count += 1
+    \State notify watchdog
+    \Until{count $\geq$ mining time}
+    \State
+    \State isMining $\gets$ false
+    \State block $\gets$ \Call{generate}{candidateTransactions}
+    \State \Call{receiveBlock}{block}
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 The mining algorithm determines the most important part of the blockchain system. Miners generate blocks by following the logic of the mining algorithm, but with different parameters that are defined in their own mining strategies. To start mining a block, miners must select a set of pending transactions from their own transaction pools. There are two cases when selecting transactions. If the transaction pool contains too much number of transactions, then the miner ignores the parameter of the minimum value of transactions and selects a set of transactions with the highest values. On the other hand, the miner selects a set of transactions which values are higher than the minimum value of transactions. After the selection of transactions, if the number of selected transactions satisfies the number of transactions that should be included in a block, then the miner will start mining.
+
+\begin{algorithm}
+    \caption{Add Block to Blockchain}
+    \label{alg:add block to blockchain}
+\begin{algorithmic}[1]
+    \Procedure{Receive Blocks}{block}
+    \If{block.previou $=$ none}
+        \State block.previous $\gets$ currentBlock.id
+        \State block.layer $\gets$ currentBlock.layer + 1
+        \State currentBlock $\gets$ block
+        \State delete the mined transactions from transaction pool
+    \ElsIf{currentBlock.layer $<$ block.layer}
+        \State currentBlock $\gets$ block
+        \State delete the mined transactions from transaction pool
+    \EndIf
+    \State
+    \State add block to blockchain
+    \State publish block to neighbors
+    \State calculate the total rewards
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 Another important algorithm is about the consensus protocol. The algorithm of the consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. Therefore, it is only responsible for resolving the longest blockchain. When a node receives a block from other nodes, this algorithm is triggered. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
 
