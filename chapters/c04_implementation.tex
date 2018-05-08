@@ -122,96 +122,31 @@ In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visu
 \section{Algorithms}
 \label{algorithms}
 
-The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithms about
+The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithm about mining processes is the key parts of the entire system. The algorithm can be divided into three parts.
+
+\begin{itemize}
+    \item Select Candidate Transactions
+    \item Mining
+    \item Add Block to Blockchain
+\end{itemize}
+
+Before a miner starts to mine a block, he/she needs to select a set of candidate transactions for the transaction pool. Thus, these candidate transactions serve as the content of the mined block. After receiving a block, the node will check the layer of the new block, and switch to the new block if the blockchain becomes the longest.
 
 sorted pending transaction
 
-\begin{algorithm}
-    \caption{Select Candidate Transactions}
-    \label{alg:select candidate transactions}
-\begin{algorithmic}[1]
-    \Procedure{Select Transactions}{}
-    \State candidateTransactions $\gets$ empty
-    \State
-    \If{transactionPool.length $\geq$ maximum number of pending transactions}
-        \ForAll{pending transaction}
-            \If{candidateTransactions.length $<$ \\ 
-                \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent}number of transactions to be mined}
-                \State add this transaction to candidateTransactions
-                \State remove this transaction from transaction pool
-            \Else
-                \State add the privilege of this transaction by 1
-            \EndIf
-        \EndFor
-    \ElsIf{transactionPool.length $\geq$ number of transactions to be mined}
-        \ForAll{pending transaction}
-            \State value $\gets$ reward $+$ privilege
-            \If{value $>$ minimum value of transactions \textit{AND} \\ 
-            \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent} candidateTransactions.length $<$ number of transactions to be mined}
-                \State add this transaction to candidateTransactions
-                \State remove this transaction from transaction pool
-            \Else
-                add the privilege of this transaction
-            \EndIf
-        \EndFor
-    \EndIf
-    \State
-    \If{candidateTransactions.length $=$ number of transactions to be mined}
-        \State \Call{Mine}{candidateTransactions}
-    \Else
-        \State add candidateTransactions to pending transactions
-    \EndIf
-    \State
-    \State notify watchdog
-    \EndProcedure
-\end{algorithmic}
-\end{algorithm}
+The process of selecting a set of candidate transactions starts with
 
-\begin{algorithm}
-    \caption{Mining Algorithm}
-    \label{alg:mining algorithm}
-\begin{algorithmic}[1]
-    \Procedure{Mine}{candidateTransactions}
-    \State count $\gets$ 0
-    \State isMining $\gets$ true
-    \State
-    \Repeat 
-    \State count += 1
-    \State notify watchdog
-    \Until{count $\geq$ mining time}
-    \State
-    \State isMining $\gets$ false
-    \State block $\gets$ \Call{generate}{candidateTransactions}
-    \State \Call{receiveBlock}{block}
-    \State notify watchdog
-    \EndProcedure
-\end{algorithmic}
-\end{algorithm}
+After determining the candidate transactions, the miner
+
+Receiving a new block triggers the consensus protocol to resolve the longest blockchain.
+
+
+
+
 
 The mining algorithm determines the most important part of the blockchain system. Miners generate blocks by following the logic of the mining algorithm, but with different parameters that are defined in their own mining strategies. To start mining a block, miners must select a set of pending transactions from their own transaction pools. There are two cases when selecting transactions. If the transaction pool contains too much number of transactions, then the miner ignores the parameter of the minimum value of transactions and selects a set of transactions with the highest values. On the other hand, the miner selects a set of transactions which values are higher than the minimum value of transactions. After the selection of transactions, if the number of selected transactions satisfies the number of transactions that should be included in a block, then the miner will start mining.
 
-\begin{algorithm}
-    \caption{Add Block to Blockchain}
-    \label{alg:add block to blockchain}
-\begin{algorithmic}[1]
-    \Procedure{Receive Blocks}{block}
-    \If{block.previou $=$ none}
-        \State block.previous $\gets$ currentBlock.id
-        \State block.layer $\gets$ currentBlock.layer + 1
-        \State currentBlock $\gets$ block
-        \State delete the mined transactions from transaction pool
-    \ElsIf{currentBlock.layer $<$ block.layer}
-        \State currentBlock $\gets$ block
-        \State delete the mined transactions from transaction pool
-    \EndIf
-    \State
-    \State add block to blockchain
-    \State publish block to neighbors
-    \State calculate the total rewards
-    \State notify watchdog
-    \EndProcedure
-\end{algorithmic}
-\end{algorithm}
+
 
 Another important algorithm is about the consensus protocol. The algorithm of the consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. Therefore, it is only responsible for resolving the longest blockchain. When a node receives a block from other nodes, this algorithm is triggered. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
 
@@ -475,6 +410,91 @@ Another important algorithm is about the consensus protocol. The algorithm of th
     \caption{Class \texttt{Hash}}
     \label{tab:class hash}
 \end{table}
+
+\begin{algorithm}[!h]
+    \caption{Select Candidate Transactions}
+    \label{alg:select candidate transactions}
+\begin{algorithmic}[1]
+    \Procedure{Select Transactions}{}
+    \State candidateTransactions $\gets$ empty
+    \State
+    \If{transactionPool.length $\geq$ maximum number of pending transactions}
+        \ForAll{pending transaction}
+            \If{candidateTransactions.length $<$ \\ 
+                \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent}number of transactions to be mined}
+                \State add this transaction to candidateTransactions
+                \State remove this transaction from transaction pool
+            \Else
+                \State add the privilege of this transaction by 1
+            \EndIf
+        \EndFor
+    \ElsIf{transactionPool.length $\geq$ number of transactions to be mined}
+        \ForAll{pending transaction}
+            \State value $\gets$ reward $+$ privilege
+            \If{value $>$ minimum value of transactions \textit{AND} \\ 
+            \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent} candidateTransactions.length $<$ number of transactions to be mined}
+                \State add this transaction to candidateTransactions
+                \State remove this transaction from transaction pool
+            \Else
+                add the privilege of this transaction
+            \EndIf
+        \EndFor
+    \EndIf
+    \State
+    \If{candidateTransactions.length $=$ number of transactions to be mined}
+        \State \Call{Mine}{candidateTransactions}
+    \Else
+        \State add candidateTransactions to pending transactions
+    \EndIf
+    \State
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!h]
+    \caption{Mining}
+    \label{alg:mining}
+\begin{algorithmic}[1]
+    \Procedure{Mine}{candidateTransactions}
+    \State count $\gets$ 0
+    \State isMining $\gets$ true
+    \State
+    \Repeat 
+    \State count += 1
+    \State notify watchdog
+    \Until{count $\geq$ mining time}
+    \State
+    \State isMining $\gets$ false
+    \State block $\gets$ \Call{generate}{candidateTransactions}
+    \State \Call{receiveBlock}{block}
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!h]
+    \caption{Add Block to Blockchain}
+    \label{alg:add block to blockchain}
+\begin{algorithmic}[1]
+    \Procedure{Receive Blocks}{block}
+    \If{block.previou $=$ none}
+        \State block.previous $\gets$ currentBlock.id
+        \State block.layer $\gets$ currentBlock.layer + 1
+        \State currentBlock $\gets$ block
+        \State delete the mined transactions from transaction pool
+    \ElsIf{currentBlock.layer $<$ block.layer}
+        \State currentBlock $\gets$ block
+        \State delete the mined transactions from transaction pool
+    \EndIf
+    \State
+    \State add block to blockchain
+    \State publish block to neighbors
+    \State calculate the total rewards
+    \State notify watchdog
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 % \section{Configuration Files}
 
