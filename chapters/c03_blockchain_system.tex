@@ -25,7 +25,7 @@ There are only two types of data structures that are used in the blockchain syst
 
 For transactions (Table \ref{tab:properties of transactions}), the properties contain the ID, the type, the timestamp, the reward, and the privilege. The ID represents the hash value of the transaction in a blockchain system. Here we use 8 random characters and digits to simplify the representation. The type indicates that the data is a valid transaction data structure. The timestamp is decided at the time the transaction is created. 
 
-The reward and the privilege are related to the mining strategies. The \textit{value} of a transaction is the sum of the reward and the privilege, as the equation \ref{eq:transaction value} states.
+The reward and the privilege are related to the mining strategy. The \textit{value} of a transaction is the sum of the reward and the privilege, as the equation \ref{eq:transaction value} states.
 
 \begin{equation} \label{eq:transaction value}
     value = reward + privilege
@@ -146,7 +146,7 @@ For example, in Figure \ref{fig:groups of miners}, there are two groups of miner
 
 \section{Mining Strategy}
 
-Every miner has different mining strategies. There are four parameters that influence the mining strategies and mining activities. 
+Every miner has different mining strategies. There are four parameters that influence the mining strategy and mining activities. 
 
 \begin{itemize}
     \item \textbf{Mining Time} \\
@@ -159,10 +159,10 @@ Every miner has different mining strategies. There are four parameters that infl
         Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
 \end{itemize}
 
-The four parameters make the mining behaviors of the miners different from each other. The influences of mining strategies to the blockchain system under specific environment can be identified clearly through the visualization. More details of how mining strategies is applied in the mining activities can be found in Section \ref{algorithms}.
+The four parameters make the mining behaviors of the miners different from each other. The influences of the mining strategy to the blockchain system under specific environment can be identified clearly through the visualization. More details of how the mining strategy is applied in the mining activities can be found in Section \ref{algorithms}.
 
 \section{Consensus Protocol}
 
 The consensus protocol that is applied in the blockchain system is proof-of-work. Under proof-of-work protocol, miners solve mathematical puzzles with their computing power. By comparing the blockchain data structures between each node, the longest blockchain can be identified easily. Miners always switch to the longest blockchain as soon as possible to ensure that they are working on the correct fork of blockchains. Additionally, miners only get rewards by adding blocks to the correct blockchain.
 
-The parameters of the mining strategies are designed for proof-of-work protocol. Therefore, the parameters will be entirely different if the applied consensus protocol is changed, e.g., proof-of-stake, in the future.
+The parameters of the mining strategy are designed for proof-of-work protocol. Therefore, the parameters will be entirely different if the applied consensus protocol is changed, e.g., proof-of-stake, in the future.
