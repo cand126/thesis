@@ -1,4 +1,4 @@
-In this chapter, 
+In this chapter, the details of implementation are discussed. It starts with the introduction of the overview and the architecture of the visualization application, and is followed by describing three important component in the application: the simulator, the watchdog, and the visualizer. In the next section, we provide an UML class diagram and several tables to describe the functionalities of the classes. Finally, the important algorithm about the mining processes is proposed to clearify the operation of mining activities.
 
 \section{Architecture}
 
@@ -158,14 +158,14 @@ Last, the node publishes the received block through the blockchain network to ma
 
 \clearpage
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{impl_uml}
     \caption{Class Diagram.}
     \label{fig:class diagram}
 \end{figure}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -187,7 +187,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class agent}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -216,7 +216,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class abstractNode}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -237,7 +237,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class transactiongenerator}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -272,7 +272,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class miner}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -289,7 +289,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class nonminer}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -322,7 +322,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class simulator}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -338,7 +338,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class watchdog}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -374,7 +374,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class visualizer}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -401,7 +401,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class gui}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
     \centering
     \begin{tabular}{ M{3.5cm}|m{8cm} } 
         \hline
@@ -417,7 +417,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \label{tab:class hash}
 \end{table}
 
-\begin{algorithm}[!h]
+\begin{algorithm}[!ht]
     \caption{Select Candidate Transactions}
     \label{alg:select candidate transactions}
 \begin{algorithmic}[1]
@@ -458,7 +458,7 @@ Last, the node publishes the received block through the blockchain network to ma
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[!h]
+\begin{algorithm}[!ht]
     \caption{Mining}
     \label{alg:mining}
 \begin{algorithmic}[1]
@@ -479,7 +479,7 @@ Last, the node publishes the received block through the blockchain network to ma
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[!h]
+\begin{algorithm}[!ht]
     \caption{Add Block to Blockchain}
     \label{alg:add block to blockchain}
 \begin{algorithmic}[1]
