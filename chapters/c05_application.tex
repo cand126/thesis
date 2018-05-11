@@ -140,9 +140,102 @@ To replay the same visualization of blockchain processes, we can define the conf
     \item the transactions that will be published through the network
 \end{itemize}
 
-In Table \ref{}, 
+We provide a sample configuration file in Listing \ref{lst:configuration file}. The file is in JSON format, and the file is used to initialize the blockchain system at the beginning.
+
+\begin{lstlisting}[caption={Configuration File}, label={lst:configuration file}]
+{
+    "nodes": [
+        {
+            "id": "6f71279b",
+            "type": "generator"
+        },
+        {
+            "id": "f1e50b4f",
+            "type": "miner",
+            "color": "#e53935",
+            "name": "Alice",
+            "miningTime": 1,
+            "minValue": 1,
+            "mineNumber": 1,
+            "maxPending": 10
+        },
+        {
+            "id": "480b945f",
+            "type": "nonminer",
+            "name": "David"
+        },
+    ],
+    "delays": [
+        {
+            "id": "6f71279b",
+            "neighbors": [
+                {
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                }
+            ]
+        },
+        {
+            "id": "f1e50b4f",
+            "neighbors": [
+                {
+                {
+                    "id": "480b945f",
+                    "seconds": 1
+                }
+            ]
+        },
+        {
+            "id": "480b945f",
+            "neighbors": [
+                {
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                }
+            ]
+        }
+    ],
+    "transactions": [
+        {
+            "reward": 2,
+            "delay": 0
+        }
+    ]
+}
+\end{lstlisting}
+
+First, for nodes, it is important to define a unique transaction generator at the beginning of the file, and then it is followed by miners and nonminers. The required properties for the transaction generator, miners, and nonminers are provided as the following.
+
+\begin{enumerate}
+    \item \textbf{Transaction Generator} \\
+        \begin{itemize}
+            \item id
+            \item type
+        \end{itemize}
+    \item \textbf{Miner} \\
+        \begin{itemize}
+            \item id
+            \item type
+            \item color
+            \item name
+            \item miningTime
+            \item minValue
+            \item mineNumber
+            \item maxPending
+        \end{itemize}
+    \item \textbf{Nonminer} \\
+        \begin{itemize}
+            \item id
+            \item type
+            \item name
+        \end{itemize}
+\end{enumerate}
 
 
-The file is in JSON format, and the file is uploaded to initialize the blockchain system at the beginning.
 
-First, for nodes, it is important to define a unique transaction generator at first, and then it is followed by miners and nonminers. After that, a list of delays between each node is defined. As mentioned before, the transaction generator only connects to miners, and miners and nonminers connect with each other. In the last part, it contains a list of transactions with rewards and the time when the transaction will be published after the starting of the blockchain system.
+Thd \textit{id} of nodes can be a string with arbitrary length, and here we use 8 characters and digits to represent the hash value. T
+
+
+
+
+After that, a list of delays between each node is defined. As mentioned before, the transaction generator only connects to miners, and miners and nonminers connect with each other. In the last part, it contains a list of transactions with rewards and the time when the transaction will be published after the starting of the blockchain system.
