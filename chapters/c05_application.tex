@@ -64,7 +64,7 @@ In this example, we set Alice (red color), Bob (blue color), and Charlie (green 
 
 \begin{itemize}
     \item Mining Time (Seconds): 1
-    \item Number of Transactions to Mine: 1
+    \item Number of Transactions to be Mined: 1
     \item Maximum Number of Pending Transactions: 10
 \end{itemize}
 
@@ -104,7 +104,7 @@ In Figure \ref{fig:alice and bob mined a block simultaneously}, it demonstrates 
     \label{fig:charlie mined a block}
 \end{figure}
 
-In the next step, 
+In the next step, Figure \ref{fig:charlie mined a block} shows the influence of the mining strategy to the mining processes. We changed the parameters of the mining strategy at first. Thus, Alice's and Bob's parameters of \textit{number of transactions to be mined} were both changed to 2. After that, a transaction with 9 rewards was published. The result was that Charlie mined a block for the reason that it satisfied Charlie's mining strategy. On the other hand, Alice and Bob did not mine a block because of the insufficient number of transactions.
 
 \begin{figure}[htb]
     \centering
@@ -113,8 +113,36 @@ In the next step,
     \label{fig:charlie mined another block}
 \end{figure}
 
+Finally, Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. Fist, Charlie's parameter of \textit{minimum value of transactions} was set to 1, and then we published a transaction with 1 reward. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy.
+
+During the mining processes, the following auxiliary information in the visualization is also helpful and dynamic.
+
+\begin{itemize}
+    \item \textbf{Progress bars for the transaction pool} \\
+        It displays the level of capicity of the transaction pool.
+    \item \textbf{Progress bars for the mining status} \\
+        It presents the mining activities in real-time, i.e., how much time is remaining for solving a puzzle.
+    \item \textbf{Number of total rewards} \\
+        It displays the caculation of the total rewards that belongs to the miner.
+    \item \textbf{Number of forks} \\
+        On the top of each fork, there is a number that represents the number of forks.
+\end{itemize}
+
+Additionally, the user can drag the visualization area to move the blockchain data structure, and zoom in and out by clicking the plus and minus buttons on the bottom right side.
+
 \section{Configuration Files}
 
-To replay the same visualization of blockchain processes, we can define the configuration of the blockchain system in a file and upload it to the application. The configuration file is composed of three parts: the properties and the parameters of mining strategies of nodes, the delays of networks between each node, and the transactions that will be published through the network. The file is in JSON format, and the file is uploaded to initialize the blockchain system at the beginning.
+To replay the same visualization of blockchain processes, we can define the configuration of the blockchain system in a file and upload it to the application as in Figure \ref{fig:start of the application}. The configuration file is composed of the following three parts.
+
+\begin{itemize}
+    \item the properties and the parameters of the mining strategy of nodes
+    \item the network delay between each node
+    \item the transactions that will be published through the network
+\end{itemize}
+
+In Table \ref{}, 
+
+
+The file is in JSON format, and the file is uploaded to initialize the blockchain system at the beginning.
 
 First, for nodes, it is important to define a unique transaction generator at first, and then it is followed by miners and nonminers. After that, a list of delays between each node is defined. As mentioned before, the transaction generator only connects to miners, and miners and nonminers connect with each other. In the last part, it contains a list of transactions with rewards and the time when the transaction will be published after the starting of the blockchain system.
