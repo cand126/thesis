@@ -1,14 +1,332 @@
+In this chapter, we explore different scenarios that can be achieved by the visualization application. ...
+
 \section{A Fast Miner}
 
-In the first scenario, there is a fast miner who mines blocks much quicker than the other miners because of the mining strategy. With the low delays of networks, the fast miner can publish the blocks quickly. Therefore, none of the other miners can compete with the fast miner, i.e., only the fast miner can add blocks to the blockchain.
+In the first scenario, there is a fast miner who mines blocks much quicker than the other miners due to the mining strategy. With the low network delay, the fast miner can publish the blocks quickly. Therefore, none of the other miners can compete with the fast miner, i.e., only the fast miner can add blocks to the blockchain.
 
-In Figure 4, Alice (red color) is the fast miner. It demonstrates that other miners (Bob and Charlie) have little chances to add blocks to the blockchain. Even if they tried to mine a block, the block is orphaned in the further steps.
+In this experiment, there are three miners, Alice (red color), Bob (blue color), and Charlie (green color), who compete with each other in the blockchain system. The configuration of this experiment is provided in Listing \ref{lst:scenario 1}.
+
+\begin{lstlisting}[caption={Scenario 1}, label={lst:scenario 1}]
+{
+    "nodes": [
+        // transaction generator
+        {
+            "id": "6f71279b",
+            "type": "generator"
+        },
+        // miner (Alice)
+        {
+            "id": "f1e50b4f",
+            "type": "miner",
+            "color": "#e53935",
+            "name": "Alice",
+            "miningTime": 1,
+            "minValue": 1,
+            "mineNumber": 1,
+            "maxPending": 10
+        },
+        // miner (Bob)
+        {
+            "id": "2d30b6fd",
+            "type": "miner",
+            "color": "#03a9f4",
+            "name": "Bob",
+            "miningTime": 5,
+            "minValue": 4,
+            "mineNumber": 3,
+            "maxPending": 10
+        },
+        // miner (Charlie)
+        {
+            "id": "a6b877ab",
+            "type": "miner",
+            "color": "#4caf50",
+            "name": "Charlie",
+            "miningTime": 6,
+            "minValue": 7,
+            "mineNumber": 2,
+            "maxPending": 10
+        }
+    ],
+    "delays": [
+        // transaction generator
+        {
+            "id": "6f71279b",
+            "neighbors": [
+                {
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                },
+                {
+                    "id": "2d30b6fd",
+                    "seconds": 1
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 1
+                }
+            ]
+        },
+        // miner (Alice)
+        {
+            "id": "f1e50b4f",
+            "neighbors": [
+                {
+                    "id": "2d30b6fd",
+                    "seconds": 1
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 1
+                }
+            ]
+        },
+        // miner (Bob)
+        {
+            "id": "2d30b6fd",
+            "neighbors": [
+                {
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 1
+                }
+            ]
+        },
+        // miner (Charlie)
+        {
+            "id": "a6b877ab",
+            "neighbors": [
+                {
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                },
+                {
+                    "id": "2d30b6fd",
+                    "seconds": 1
+                }
+            ]
+        }
+    ],
+    "transactions": [
+        {
+            "reward": 2,
+            "delay": 0
+        },
+        {
+            "reward": 3,
+            "delay": 1
+        },
+        {
+            "reward": 9,
+            "delay": 2
+        },
+        {
+            "reward": 4,
+            "delay": 3
+        },
+        {
+            "reward": 7,
+            "delay": 4
+        },
+        {
+            "reward": 5,
+            "delay": 5
+        },
+        {
+            "reward": 1,
+            "delay": 6
+        },
+        {
+            "reward": 5,
+            "delay": 7
+        },
+        {
+            "reward": 3,
+            "delay": 8
+        },
+        {
+            "reward": 2,
+            "delay": 9
+        }
+    ]
+}
+\end{lstlisting}
+
+As the configuration file shows, Alice's mining strategy is the fastest because the parameters of \textit{Mining Time}, \textit{Minimum Value of Transactions}, and \textit{Fixed Number of Transactions in Blocks} are all set to 1. On the contrary, Bob's and Charlie's parameters are both higher than Alice's parameters. The parameters of network delay are all set to 1. Hence, the blockchain network is stable and fast and it only takes 1 second to publish the blocks to neighbors. For transactions, we defined a sequence of transactions which interval is 1 second.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{scenario_case1}
+    \caption{Alice was a fast miner.}
+    \label{fig:alice was a fast miner}
+\end{figure}
+
+In Figure \ref{fig:alice was a fast miner}, it demonstrates the results of the above configuration. Although some transactions have high number of reward, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all of the 10 transactions were mined by Alice, even if Bob tried to mined a block at the seventh layer. 
+
+In summary, this scenario shows the competition between the miners. As our expectation, the mining strategy with the lowest \textit{Mining Time}, \textit{Minimum Value of Transactions} and \textit{Fixed Number of Transactions in Blocks} is the fastest one. Additionally, it shows that the orphaned block were handled by the visualization application correctly, as the fast miner still worked on the correct blockchain data structure.
 
 \section{Multiple Forks}
 
-In the second scenario, there are multiple miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delays, miners add their own blocks on the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues.
+In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delays, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
 
-In Figure 5, Alice, Bob, and Charlie compete with each other for a long time because the time of mining is shorter than the time of publishing blocks. In this case, the miners are divided into three groups which work on different blockchains. It demonstrates that the visualization application handles the forks correctly. Additionally, the numbers of forks are shown at the top of each fork. However, the forks cannot be merged in the current implementation because the parameters are fixed during the visualization.
+\begin{lstlisting}[caption={Scenario 2}, label={lst:scenario 2}]
+{
+    "nodes": [
+        // transaction generator
+        {
+            "id": "6f71279b",
+            "type": "generator"
+        },
+        // miner (Alice)
+        {
+            "id": "f1e50b4f",
+            "type": "miner",
+            "color": "#e53935",
+            "name": "Alice",
+            "miningTime": 1,
+            "minValue": 1,
+            "mineNumber": 1,
+            "maxPending": 10
+        },
+        // miner (Bob)
+        {
+            "id": "2d30b6fd",
+            "type": "miner",
+            "color": "#03a9f4",
+            "name": "Bob",
+            "miningTime": 1,
+            "minValue": 1,
+            "mineNumber": 1,
+            "maxPending": 10
+        },
+        // miner (Charlie)
+        {
+            "id": "a6b877ab",
+            "type": "miner",
+            "color": "#4caf50",
+            "name": "Charlie",
+            "miningTime": 1,
+            "minValue": 1,
+            "mineNumber": 1,
+            "maxPending": 10
+        }
+    ],
+    "delays": [
+        // transaction generator
+        {
+            "id": "6f71279b",
+            "neighbors": [{
+                    "id": "f1e50b4f",
+                    "seconds": 1
+                },
+                {
+                    "id": "2d30b6fd",
+                    "seconds": 1
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 1
+                }
+            ]
+        },
+        // miner (Alice)
+        {
+            "id": "f1e50b4f",
+            "neighbors": [{
+                    "id": "2d30b6fd",
+                    "seconds": 3
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 3
+                }
+            ]
+        },
+        // miner (Bob)
+        {
+            "id": "2d30b6fd",
+            "neighbors": [{
+                    "id": "f1e50b4f",
+                    "seconds": 3
+                },
+                {
+                    "id": "a6b877ab",
+                    "seconds": 3
+                }
+            ]
+        },
+        // miner (Charlie)
+        {
+            "id": "a6b877ab",
+            "neighbors": [{
+                    "id": "f1e50b4f",
+                    "seconds": 3
+                },
+                {
+                    "id": "2d30b6fd",
+                    "seconds": 3
+                }
+            ]
+        }
+    ],
+    "transactions": [
+        {
+            "reward": 2,
+            "delay": 0
+        },
+        {
+            "reward": 3,
+            "delay": 1
+        },
+        {
+            "reward": 9,
+            "delay": 2
+        },
+        {
+            "reward": 4,
+            "delay": 3
+        },
+        {
+            "reward": 7,
+            "delay": 4
+        },
+        {
+            "reward": 5,
+            "delay": 5
+        },
+        {
+            "reward": 1,
+            "delay": 6
+        },
+        {
+            "reward": 5,
+            "delay": 7
+        },
+        {
+            "reward": 3,
+            "delay": 8
+        },
+        {
+            "reward": 2,
+            "delay": 9
+        }
+    ]
+}
+\end{lstlisting}
+
+Listing
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{scenario_case2}
+    \caption{Alice, Bob, and Charlie competed with each other.}
+    \label{fig:alice, bob, and charlie competed with each other}
+\end{figure}
+
+In Figure \label{fig:alice, bob, and charlie competed with each other}, Alice, Bob, and Charlie compete with each other for a long time because the time of mining is shorter than the time of publishing blocks. In this case, the miners are divided into three groups which work on different blockchains. It demonstrates that the visualization application handles the forks correctly. Additionally, the numbers of forks are shown at the top of each fork. However, the forks cannot be merged in the current implementation because the parameters are fixed during the visualization.
 
 \section{Limitation of Nodes and Transactions}
 
