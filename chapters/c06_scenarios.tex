@@ -317,7 +317,7 @@ In the second scenario, there are three miners who have the similar computing po
 }
 \end{lstlisting}
 
-Listing
+In the configuration file, Alice's, Bob's and Charlie's parameters of the mining strategy are set to the same value. Therefore, it is expected that the three miners will always mine at the same time. The parameters of the network delay are higher than the parameters of \textit{Mining Time} to simulate the bad network conditions between three miners. The sequence of transactions are the same as Listing \ref{lst:scenario 1}.
 
 \begin{figure}[htb]
     \centering
@@ -326,7 +326,16 @@ Listing
     \label{fig:alice, bob, and charlie competed with each other}
 \end{figure}
 
-In Figure \label{fig:alice, bob, and charlie competed with each other}, Alice, Bob, and Charlie compete with each other for a long time because the time of mining is shorter than the time of publishing blocks. In this case, the miners are divided into three groups which work on different blockchains. It demonstrates that the visualization application handles the forks correctly. Additionally, the numbers of forks are shown at the top of each fork. However, the forks cannot be merged in the current implementation because the parameters are fixed during the visualization.
+In Figure \ref{fig:alice, bob, and charlie competed with each other}, Alice, Bob, and Charlie compete with each other for a long time because the duration of mining time is shorter than the duration of publishing blocks. The miners are divided into three groups which work on different blockchain data structures because every miner considered that their own blockchain is the lognest. It can be checked that the mining processes visualized the mining processes according to the above description, as Figure \ref{fig:the mining processes of scenario 2} shows.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{scenario_case2_2}
+    \caption{The mining processes of scenario 2.}
+    \label{fig:the mining processes of scenario 2}
+\end{figure}
+
+In conclusion, it demonstrates that the visualization application is able to handle the forks correctly. Furthermore, the mining processes are also correct. However, there is a weak point in the visualization application. The forks cannot be merged in the current implementation because the parameters of the mining strategy are fixed during the visualization. Thus, the scenario of multiple forks in the visualization represent the scenario of the hard forks in the real blockchain networks. It should be improved to handle the scenario of the soft forks in the future.
 
 \section{Limitation of Nodes and Transactions}
 
