@@ -97,27 +97,307 @@ The visualizer expresses fantastic blockchain visualization that is able to attr
 
 In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notify class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation. The following contains all the classes that compose the visualization application.
 
+\clearpage
+
+\vspace*{\fill}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{impl_uml}
+    \caption{Class Diagram.}
+    \label{fig:class diagram}
+\end{figure}
+\vspace*{\fill}
+
+\clearpage
+
 \begin{itemize}
+    \vspace*{\fill}
     \item \textbf{Agent} (Table \ref{tab:class agent}) \\
         \texttt{Agent} is from the multi-agent system framework, Eve. It establishes the communication channel for the agents. In the implementation, the channel is opened with HTTP protocols. It makes sending and receiving transactions and blocks very simple. 
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Agent (eve.js)}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                transport & communication channels. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                connect & connect with a transport. \\ 
+                disconnect & disconnect from a transport. \\ 
+                send & send messages to a transport. \\ 
+                receive & receive messages from a transport. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Agent}}
+            \label{tab:class agent}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{AbstractNode} (Table \ref{tab:class abstractNode}) \\
         It defines the common properties and methods of its children. \texttt{AbstractNode} is an abstract class, so it is not allowed to instantiate instances from it. In contrast, we can create nodes from the children of \texttt{AbstractNode}, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{AbstractNode}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                id & unique in the multi-agent system. \\ 
+                blockchain & blockchain data structures. \\ 
+                currentBlock & the id of the block which is on the top of the longest blockchain. \\ 
+                neighbors & reachable nodes. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                initBlockchain & initialize blockchain data structures. \\ 
+                receive & inherit from \texttt{eve.js}. \\ 
+                receiveTransaction & define actions of receiving transactions. \\ 
+                receiveBlock & define actions of receiving blocks. \\ 
+                publish & publish transactions or blocks. \\ 
+                calculateReward & calculate the total mining rewards. \\ 
+                addNeighbor & add a new node as a neighbor. \\ 
+                deleteNeighbor & delete a node from neighbors. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{AbstractNode}}
+            \label{tab:class abstractNode}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{TransactionGenerator} (Table \ref{tab:class transactiongenerator}) \\
         It is responsible for generating and publishing transactions. There should be only one transaction generator in the blockchain system. Furthermore, the neighbors of the transaction generator only contain the miners.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{TransactionGenerator}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                id & unique in the multi-agent system. \\ 
+                type & is always ``generator''. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                generate & generate a transaction. \\ 
+                publish & publish a transaction. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{TransactionGenerator}}
+            \label{tab:class transactiongenerator}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{Miner} (Table \ref{tab:class miner}) \\
         \texttt{Miner} is the main role in the blockchain system. It generates and publishes blocks through the blockchain network. Therefore, it controls all the mining processes in the blockchain system.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Miner}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                id & unique in the multi-agent system. \\ 
+                type & is always ``miner''. \\ 
+                name & a simple nickname. \\ 
+                color & the color of the generated blocks. \\ 
+                transactionPool & contain pending transactions. \\ 
+                miningTime & computing power. \\ 
+                minValue & minimum value of transactions. \\ 
+                mineNumber & size of blocks. \\ 
+                maxPending & maximum pending transactions. \\ 
+                totalReward & total number of rewards. \\ 
+                isMining & whether the miner is mining. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                selectTransactions & select pending transactions as candidates. \\ 
+                mine & solve the puzzles. \\ 
+                generate & generate a block instance. \\ 
+                receiveBlock & inherit from \texttt{AbstractNode}. \\ 
+                deleteTransactions & delete mined transactions from the transaction pool. \\ 
+                receiveTransaction & inherit from \texttt{AbstractNode}. \\ 
+                calculateReward & inherit from \texttt{AbstractNode}. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Miner}}
+            \label{tab:class miner}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{Nonminer} (Table \ref{tab:class nonminer}) \\
         \texttt{Nonminer} represents common users who do not solve complex mathematical puzzles in the blockchain system. The only behavior of nonminers is to receive and publish blocks. Consequently, the miners and the nonminers connect with each other. 
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Nonminer}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                id & unique in the multi-agent system. \\ 
+                type & is always ``nonminer''. \\ 
+                name & a simple nickname. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Nonminer}}
+            \label{tab:class nonminer}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{Simulator} (Table \ref{tab:class simulator}) \\
         \texttt{Simulator} is the only master of the blockchain system. It is able to add and update nodes, and retrieve information from the blockchain system.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Simulator}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                nodeList & a list of all nodes. \\ 
+                transactionGenerator & reference to the transaction generator. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                getInstance & get the instance of the simulator. \\ 
+                reset & reset the blockchain system. \\ 
+                init & initialize the blockchain system. \\ 
+                addNodeByType & add a new node with defined type. \\ 
+                addNode & add a new node. \\ 
+                deleteNode & delete a node. \\ 
+                getNodesInfo & get the information of a node. \\ 
+                getBlockchain & get the blockchain data structure of a node. \\ 
+                getCurrentBlock & get the information of the current block of a node. \\ 
+                \begin{tabular}[c]{@{}c@{}}getTransactionPool- \\ Length\end{tabular} & get the level of capacity of the transaction pool of a node. \\ 
+                getReward & get the number of rewards of a node. \\ 
+                updateNode & update the information of a node. \\ 
+                updateStrategy & update the parameters of the mining strategy of a node. \\ 
+                publishTransaction & publish a transaction through the transaction generator. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Simulator}}
+            \label{tab:class simulator}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{Watchdog} (Table \ref{tab:class watchdog}) \\
         \texttt{Watchdog} monitors the blockchain system. When a mining activity starts, it keeps notifying the visualizer until the end.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Watchdog}} \\
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                getInstance & get the instance of the watchdog. \\ 
+                onDataChange & monitoring the data. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Watchdog}}
+            \label{tab:class watchdog}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{Visualizer} (Table \ref{tab:class visualizer}) \\
         \texttt{Visualizer} uses 3D graphical library to render the blockchain visualization. It maintains all miners' and nonminers' canvases and the mouse events which enable users to drag, zoom in, and zoom out the canvases.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Visualizer}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                canvasList & a list of all canvases. \\ 
+                canvasWidth & the width of each canvas. \\ 
+                canvasHeight & the height of each canvas. \\ 
+                canvasMarginTop & the top margin of each canvas. \\ 
+                canvasMarginRight & the right margin of each canvas. \\ 
+                blockSize & the size of blocks. \\ 
+                blockSpace & the spaces between blocks. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                initCanvas & initialize all canvases. \\ 
+                initProgress & initialize progress bars. \\ 
+                initReward & initialize the numbers of rewards. \\ 
+                onCanvasMouseDown & mouse event. \\ 
+                onCanvasMouseUp & mouse event. \\ 
+                onCanvasMouseLeave & mouse event. \\ 
+                onCanvasMouseMove & mouse event. \\ 
+                zoomIn & zoom in with mouse. \\ 
+                zoomOut & zoom out with mouse. \\ 
+                addCanvas & add a new canvas. \\ 
+                animate & update by each frame. \\ 
+                updateCanvas & update a canvas. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Visualizer}}
+            \label{tab:class visualizer}
+        \end{table}
+    \vspace*{\fill}
+    \clearpage
+    \vspace*{\fill}
     \item \textbf{GUI} (Table \ref{tab:class gui}) \\
         The graphical user interface is responsible for the interactions with users, including uploading files, updating the blockchain sytem, publishing transactions, and resetting the blockchain system.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{GUI}} \\
+                \hline
+                \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                socket & the instance of WebSocket. \\ 
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                initSocket & initialize WebSocket. \\ 
+                registerEnter & register enter keyboard. \\ 
+                publishTransaction & publish a transaction. \\ 
+                addNode & add a new node. \\ 
+                deleteNode & delete a node. \\ 
+                updateNode & update a node. \\ 
+                updateStrategy & update the parameters of the mining strategy of a node. \\ 
+                upload & upload a configuration file. \\ 
+                reset & reset the blockchain system. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{GUI}}
+            \label{tab:class gui}
+        \end{table}
     \item \textbf{Hash} (Table \ref{tab:class hash}) \\
         This class generates a sequence of random numbers to simulate the hash functions. It avoids to put lots of computing resources to calculate hash values.
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{ M{3.5cm}|m{8cm} } 
+                \hline
+                \multicolumn{2}{c}{\textbf{Hash}} \\
+                \hline
+                \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
+                \hline
+                generateId & generate a hash value for id. \\ 
+                generateNull & generate a hash value only with zeros. \\ 
+                \hline
+            \end{tabular}
+            \caption{Class \texttt{Hash}}
+            \label{tab:class hash}
+        \end{table}
 \end{itemize}
 
 \section{Algorithms}
@@ -144,281 +424,9 @@ In Algorithm \ref{alg:select candidate transactions}, it states the procedure of
 
 In both cases, if a transaction is not selected as a candidate transaction, then the privilege of the transaction will increase. Finally, if the number of selected candidate transactions is larger than the number of transactions to be mined, then the miner will start to mine a block. Otherwise, the miner will put the candidate transactions back into the transaction pool and give up to mine a block.
 
-Regarding the mining algorithm (Algorithm \ref{alg:mining}), it simulates the process of solving a puzzle in the proof-of-work base blockchain system. After determining the candidate transactions, the miner starts a timer until it meets the duration of time that should be spent on mining. That is, it means that the miner solves the puzzle successfully. Thus, the miner is ready for generating and publishing the block.
-
-Receiving a new block triggers the consensus protocol to resolve the longest blockchain (Algorithm \ref{alg:add block to blockchain}). There are two cases that will happen when receiving a new block.
-
-\begin{enumerate}
-    \item \textbf{the id of the previous block of the new block is empty} \\
-        It happens because the new block was mined by the miner himself/herself. Therefore, the miner puts the new block on the top of the current blockchain, i.e., the miner adds the new block after the current block.
-    \item \textbf{the id of the previous block of the new block is not empty} \\
-        The consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
-\end{enumerate}
-
-Last, the node publishes the received block through the blockchain network to make sure that every neighbor has the same blockchain data structure. In addition, the miner calculates and updates his/her total rewards if the blockchain becomes longer.
-
 \clearpage
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\textwidth]{impl_uml}
-    \caption{Class Diagram.}
-    \label{fig:class diagram}
-\end{figure}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Agent (eve.js)}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        transport & communication channels. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        connect & connect with a transport. \\ 
-        disconnect & disconnect from a transport. \\ 
-        send & send messages to a transport. \\ 
-        receive & receive messages from a transport. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Agent}}
-    \label{tab:class agent}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{AbstractNode}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        id & unique in the multi-agent system. \\ 
-        blockchain & blockchain data structures. \\ 
-        currentBlock & the id of the block which is on the top of the longest blockchain. \\ 
-        neighbors & reachable nodes. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        initBlockchain & initialize blockchain data structures. \\ 
-        receive & inherit from \texttt{eve.js}. \\ 
-        receiveTransaction & define actions of receiving transactions. \\ 
-        receiveBlock & define actions of receiving blocks. \\ 
-        publish & publish transactions or blocks. \\ 
-        calculateReward & calculate the total mining rewards. \\ 
-        addNeighbor & add a new node as a neighbor. \\ 
-        deleteNeighbor & delete a node from neighbors. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{AbstractNode}}
-    \label{tab:class abstractNode}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{TransactionGenerator}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        id & unique in the multi-agent system. \\ 
-        type & is always ``generator''. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        generate & generate a transaction. \\ 
-        publish & publish a transaction. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{TransactionGenerator}}
-    \label{tab:class transactiongenerator}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Miner}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        id & unique in the multi-agent system. \\ 
-        type & is always ``miner''. \\ 
-        name & a simple nickname. \\ 
-        color & the color of the generated blocks. \\ 
-        transactionPool & contain pending transactions. \\ 
-        miningTime & computing power. \\ 
-        minValue & minimum value of transactions. \\ 
-        mineNumber & size of blocks. \\ 
-        maxPending & maximum pending transactions. \\ 
-        totalReward & total number of rewards. \\ 
-        isMining & whether the miner is mining. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        selectTransactions & select pending transactions as candidates. \\ 
-        mine & solve the puzzles. \\ 
-        generate & generate a block instance. \\ 
-        receiveBlock & inherit from \texttt{AbstractNode}. \\ 
-        deleteTransactions & delete mined transactions from the transaction pool. \\ 
-        receiveTransaction & inherit from \texttt{AbstractNode}. \\ 
-        calculateReward & inherit from \texttt{AbstractNode}. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Miner}}
-    \label{tab:class miner}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Nonminer}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        id & unique in the multi-agent system. \\ 
-        type & is always ``nonminer''. \\ 
-        name & a simple nickname. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Nonminer}}
-    \label{tab:class nonminer}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Simulator}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        nodeList & a list of all nodes. \\ 
-        transactionGenerator & reference to the transaction generator. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        getInstance & get the instance of the simulator. \\ 
-        reset & reset the blockchain system. \\ 
-        init & initialize the blockchain system. \\ 
-        addNodeByType & add a new node with defined type. \\ 
-        addNode & add a new node. \\ 
-        deleteNode & delete a node. \\ 
-        getNodesInfo & get the information of a node. \\ 
-        getBlockchain & get the blockchain data structure of a node. \\ 
-        getCurrentBlock & get the information of the current block of a node. \\ 
-        \begin{tabular}[c]{@{}c@{}}getTransactionPool- \\ Length\end{tabular} & get the level of capacity of the transaction pool of a node. \\ 
-        getReward & get the number of rewards of a node. \\ 
-        updateNode & update the information of a node. \\ 
-        updateStrategy & update the parameters of the mining strategy of a node. \\ 
-        publishTransaction & publish a transaction through the transaction generator. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Simulator}}
-    \label{tab:class simulator}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Watchdog}} \\
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        getInstance & get the instance of the watchdog. \\ 
-        onDataChange & monitoring the data. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Watchdog}}
-    \label{tab:class watchdog}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Visualizer}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        canvasList & a list of all canvases. \\ 
-        canvasWidth & the width of each canvas. \\ 
-        canvasHeight & the height of each canvas. \\ 
-        canvasMarginTop & the top margin of each canvas. \\ 
-        canvasMarginRight & the right margin of each canvas. \\ 
-        blockSize & the size of blocks. \\ 
-        blockSpace & the spaces between blocks. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        initCanvas & initialize all canvases. \\ 
-        initProgress & initialize progress bars. \\ 
-        initReward & initialize the numbers of rewards. \\ 
-        onCanvasMouseDown & mouse event. \\ 
-        onCanvasMouseUp & mouse event. \\ 
-        onCanvasMouseLeave & mouse event. \\ 
-        onCanvasMouseMove & mouse event. \\ 
-        zoomIn & zoom in with mouse. \\ 
-        zoomOut & zoom out with mouse. \\ 
-        addCanvas & add a new canvas. \\ 
-        animate & update by each frame. \\ 
-        updateCanvas & update a canvas. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Visualizer}}
-    \label{tab:class visualizer}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{GUI}} \\
-        \hline
-        \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        socket & the instance of WebSocket. \\ 
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        initSocket & initialize WebSocket. \\ 
-        registerEnter & register enter keyboard. \\ 
-        publishTransaction & publish a transaction. \\ 
-        addNode & add a new node. \\ 
-        deleteNode & delete a node. \\ 
-        updateNode & update a node. \\ 
-        updateStrategy & update the parameters of the mining strategy of a node. \\ 
-        upload & upload a configuration file. \\ 
-        reset & reset the blockchain system. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{GUI}}
-    \label{tab:class gui}
-\end{table}
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{ M{3.5cm}|m{8cm} } 
-        \hline
-        \multicolumn{2}{c}{\textbf{Hash}} \\
-        \hline
-        \textit{Methods} & \multicolumn{1}{c}{\textit{Description}} \\
-        \hline
-        generateId & generate a hash value for id. \\ 
-        generateNull & generate a hash value only with zeros. \\ 
-        \hline
-    \end{tabular}
-    \caption{Class \texttt{Hash}}
-    \label{tab:class hash}
-\end{table}
-
-\begin{algorithm}[!ht]
+\vspace*{\fill}
+\begin{algorithm}[htb]
     \caption{Select Candidate Transactions}
     \label{alg:select candidate transactions}
 \begin{algorithmic}[1]
@@ -458,8 +466,13 @@ Last, the node publishes the received block through the blockchain network to ma
     \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+\vspace*{\fill}
 
-\begin{algorithm}[!ht]
+\clearpage
+
+Regarding the mining algorithm (Algorithm \ref{alg:mining}), it simulates the process of solving a puzzle in the proof-of-work base blockchain system. After determining the candidate transactions, the miner starts a timer until it meets the duration of time that should be spent on mining. That is, it means that the miner solves the puzzle successfully. Thus, the miner is ready for generating and publishing the block.
+
+\begin{algorithm}[htb]
     \caption{Mining}
     \label{alg:mining}
 \begin{algorithmic}[1]
@@ -480,7 +493,18 @@ Last, the node publishes the received block through the blockchain network to ma
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[!ht]
+\clearpage
+
+Receiving a new block triggers the consensus protocol to resolve the longest blockchain (Algorithm \ref{alg:add block to blockchain}). There are two cases that will happen when receiving a new block.
+
+\begin{enumerate}
+    \item \textbf{the id of the previous block of the new block is empty} \\
+        It happens because the new block was mined by the miner himself/herself. Therefore, the miner puts the new block on the top of the current blockchain, i.e., the miner adds the new block after the current block.
+    \item \textbf{the id of the previous block of the new block is not empty} \\
+        The consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
+\end{enumerate}
+
+\begin{algorithm}[htb]
     \caption{Add Block to Blockchain}
     \label{alg:add block to blockchain}
 \begin{algorithmic}[1]
@@ -502,3 +526,7 @@ Last, the node publishes the received block through the blockchain network to ma
     \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
+Last, the node publishes the received block through the blockchain network to make sure that every neighbor has the same blockchain data structure. In addition, the miner calculates and updates his/her total rewards if the blockchain becomes longer.
+
+
