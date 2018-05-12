@@ -339,5 +339,5 @@ In conclusion, it demonstrates that the visualization application is able to han
 
 \section{Limitation of Nodes and Transactions}
 
-Through experiments, we found that the maximum number of nodes that can be handled by the application is 15 because of the limitation of the visualization engine. On the other hand, the number of transactions that can be handled should be unlimited. We tested it by publishing 100 transactions, and the application still operates correctly.
+Through experiments, we found that the maximum number of nodes that can be handled by the application is 15 because of the limitation of the visualization engine, i.e., the Three.js library. The visualization engine cannot created too much canvases due to the performance issue. Hence, the sum of the number of miners and nonminers is limited to 15. On the other hand, the number of transactions that can be handled should be unlimited. We tested it by publishing 100 transactions, and the application still operates correctly.
 
