@@ -1,9 +1,22 @@
 \section{Summary}
 
-This paper proposes the first trial to visualize the complex and dynamic mining processes in the blockchain system. With the watchdog which monitors the data in the blockchain system, the visualizer can update the visualization in real-time after it receives the data from the watchdog. The visualization of blockchain processes clearly indicates the mining activities step by step. 
+This paper proposes the first trial to visualize the complex and dynamic mining processes in the blockchain system. The visualization is based on a simluation of the blockchain system which is powered by a multi-agent system. With the watchdog which monitors the data in the blockchain system, the visualizer can update the visualization in real-time after it receives the data from the watchdog. The visualization of blockchain processes clearly indicates the mining activities step by step. 
 
-The visualization application helps researchers to conduct experiments and focus on the mining activities which are influenced by mining strategies and delays of networks in the blockchain system. By providing a configuration file which defines all the properties and parameters in the blockchain system, the same mining processes can be replayed by the visualization application.
+The visualization application helps researchers to conduct experiments and focus on the mining activities which are influenced by network delay and the mining strategy in the blockchain system. By providing a configuration file which defines all the properties and parameters in the blockchain system, the same mining processes can be replayed by the visualization application. With the discussions of the scenarios, it proves the potential applications of the visualization tool.
 
 \section{Future Work}
 
-In future, the consensus protocol can be extended to include other algorithms, such as proof-of-stakes. Therefore, researchers can switch between different consensus protocols to compare different mining behaviors. To simulate the attacks on the blockchain system, malicious nodes should be included in the application. Thus, we need to improve the algorithm of consensus protocols to validate and detect malicious nodes. In a peer-to-peer network, nodes can jump in and out at any time. Ensuring the dynamic creations and deletions when the visualization is running could be a good feature. To solve the merge problem in the second scenario, we should provide a randomness to the parameters in our system. Moreover, the longest blockchain sometimes changes in the visualization. It can be improved to implement the confirmation of blocks. For example, a block is confirmed if it is 6 blocks deep and on the longest blockchain in Bitcoin.
+In the future, we plan to do the following improvements to the visualization application.
+
+\begin{itemize}
+    \item \textbf{Add different consensus protocols} \\
+        The consensus protocol can be extended to include other algorithms, such as proof-of-stakes. Therefore, researchers can switch between different consensus protocols to compare different mining behaviors.
+    \item \textbf{Add malicious nodes} \\
+        To simulate the attacks on the blockchain system, malicious nodes should be included in the application. Thus, we need to improve the algorithm of consensus protocols to validate and detect malicious nodes.
+    \item \textbf{Dynamic nodes} \\
+        In a peer-to-peer network, nodes can jump in and out at any time. Ensuring the dynamic creations and deletions while the visualization is running could be a good feature.
+    \item \textbf{Merge of forks} \\
+        To solve the merge problem in the second scenario, the naive solution is to provide a randomness to the parameters in the blockchain system. For example, the duration of mining time should be randomness between a range because solving a puzzle cannot be predicted in the real blockchain system.
+    \item \textbf{Confirmation of blocks}
+        The longest blockchain sometimes changes in the visualization. It can be improved to implement the confirmation of blocks. For example, a block is confirmed if it is 6 blocks deep and on the longest blockchain in Bitcoin.
+\end{itemize}
