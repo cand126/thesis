@@ -45,7 +45,7 @@ The web application is responsible for the visualization and the interactions wi
     \item \textbf{Visualizer} \\
         The visualizer is responsible for rendering the visualization of blockchains when it is notified by the watchdog. It receives the data of transactions and blocks from the server and renders them appropriately on the HTML documents.
     \item \textbf{Graphical User Interface} \\
-        The GUI provides an index page and a settings page. The index page is for the visualization part, and the settings page displays all the defined parameters in the blockchain system. More details can be refered to \ref{}.
+        The GUI provides an index page and a settings page. The index page is for the visualization part, and the settings page displays all the defined parameters in the blockchain system. More details can be refered to Section \ref{sec:flow}.
 \end{itemize}
 
 The visualization is based on Three.js, a JavaScript framework for rendering 2D and 3D graphics. Three.js uses WebGL as the renderer, and the updating performance is 60 frame per second. The reason to choose Three.js as the visualization framework is that it is an famous open source project, and the community is active. Moreover, Three.js provides basic shapes, e.g., squares and lines, and handles the updating of frames. Therefore, we can focus on optimize the user experience of the visualization without considering the implementation of WebGL.
@@ -58,7 +58,7 @@ After the blockchain system starts, the simulator initializes the status of the 
 
 When the user wants to change the parameters, i.e., the mining strategy and delays of networks, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The data are sent through WebSocket in real-time.
 
-The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a unique and robust interface for the requests from the client. As a result, it decouples the relationship between the web application and the blockchain system. The detail of the simulator can be refered to \ref{}.
+The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a unique and robust interface for the requests from the client. As a result, it decouples the relationship between the web application and the blockchain system. The detail of the simulator can be refered to \ref{sec:uml diagram}.
 
 \section{Watchdog}
 
@@ -74,7 +74,7 @@ The watchdog watches three kinds of data in the blockchain system.
 
 While a miner receives a transaction or a block, a nonminer receives a block, or a miner is solving the puzzle, the watchdog will notify the visualizer in real-time through WebSocket. Therefore, it is guaranteed that the visualization of the data is synchronized with the blockchain system all the time.
 
-With the help of the watchdog, the activities that happened in the blockchain system is recorded completely. Hence, it ensures the correctness of the visualization application. The detail of the watchdog can be refered to \ref{}.
+With the help of the watchdog, the activities that happened in the blockchain system is recorded completely. Hence, it ensures the correctness of the visualization application. The detail of the watchdog can be refered to \ref{sec:uml diagram}.
 
 \section{Visualizer}
 
@@ -90,9 +90,10 @@ Three items are updated by the visualizer continuously.
 
 The status bars for transaction pools and the status bars for mining are auxiliary tools to help the user understand the events that are acctually happening in mining activities. The status bar for transaction pools becomes longer if the pending transactions are growing and vice versa. The status barsfor mining is usually empty, except that the miner is solving the puzzle. It increases each second when the mining activity continuouses. Unlike the real blockchain networks, the time of solving the puzzles is predictable in our visualization application, and it is defined in the parameter of the mining strategy. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The growth of the blockchain data structures is dynamic and real-time as the mining activities are in progress.
 
-The visualizer expresses fantastic blockchain visualization that is able to attract the user. In addition, it explains the steps of mining processes understandably, even for the viewers who are new to blockchain technology. The detail of the visualizer can be refered to \ref{}.
+The visualizer expresses fantastic blockchain visualization that is able to attract the user. In addition, it explains the steps of mining processes understandably, even for the viewers who are new to blockchain technology. The detail of the visualizer can be refered to \ref{sec:uml diagram}.
 
 \section{UML Diagram}
+\label{sec:uml diagram}
 
 In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notify class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation. The following contains all the classes that compose the visualization application.
 
@@ -120,7 +121,7 @@ In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visu
 \end{itemize}
 
 \section{Algorithms}
-\label{algorithms}
+\label{sec:algorithms}
 
 The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithm about mining processes is the key parts of the entire system. The algorithm can be divided into three parts.
 
