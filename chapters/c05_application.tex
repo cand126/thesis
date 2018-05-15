@@ -3,7 +3,7 @@ In this chapter, we introduce the usage and the flow of the visualization applic
 \section{Flow}
 \label{sec:flow}
 
-In this section, the general flow of the usage of the visualization application is guided. At the beginning, the blockchain system is empty, and the user can either upload a configuration file or add nodes manually (Figure \ref{fig:start of the application}). The introduction starts with creating nodes and publishing transactions manually, as it is clearer to begin with an simple example.
+In this section, the general flow of the usage of the visualization application is guided. In the beginning, the blockchain system is empty, and the user can either upload a configuration file or add nodes manually (Figure \ref{fig:start of the application}). The introduction starts with creating nodes and publishing transactions manually, as it is clearer to begin with a simple example.
 
 \begin{figure}[htb]
     \centering
@@ -30,7 +30,7 @@ The settings page contains all the nodes that exist on the blockchain network. H
     \label{fig:settings of transaction generator}
 \end{figure}
 
-After creating nodes, the settings page contains three miners and two nonminers now. Additionally, the transaction generator is added to the blockchain system automatically. In Figure \ref{fig:settings of transaction generator}, the properties of the transaction generator is displayed in the toppest block. The properties contain the ID and the delays to its neighbors.
+After creating nodes, the settings page contains three miners and two nonminers now. Additionally, the transaction generator is added to the blockchain system automatically. In Figure \ref{fig:settings of transaction generator}, the properties of the transaction generator are displayed in the most top block. The properties contain the ID and the delays to its neighbors.
 
 By scrolling down the settings page, the miners that exist in the blockchain system are displayed first. The configuration of the miners can be divided into three parts, as Figure \ref{fig:settings of miner} shows.
 
@@ -61,7 +61,7 @@ By scrolling down the settings page, the miners that exist in the blockchain sys
 
 The last part of the settings page is for the nonminers. Because nonminers do not mine a block by themselves, the represented color and the parameters of mining strategy are missing here, as Figure \ref{fig:settings of nonminer} shows.
 
-The user can give miners and nonminers nicknames such as Alice, Bob, etc., to make the relationship of the nodes more understandable. The nicknames may not be unique in the blockchain system for the reason that the nodes are recognized by their unique IDs. Moreover, the parameters are updated automatically while the user is typing. All of the parameters are generated randomly at first, so it is better that checking and setting each parameter manually.
+The user can give miners and nonminers nicknames such as Alice, Bob, etc., to make the relationship between the nodes more understandable. The nicknames may not be unique in the blockchain system for the reason that the nodes are recognized by their unique IDs. Moreover, the parameters are updated automatically while the user is typing. All of the parameters are generated randomly at first, so it is better to check and set each parameter manually.
 
 In this example, we set Alice (red color), Bob (blue color), and Charlie (green color) as miners, and David and Eva as nonminers. For the mining strategy, we set the following three parameters to the same number for all miners.
 
@@ -80,7 +80,7 @@ For the parameters of \textit{minimum value of transactions}, we set 1 for Alice
     \label{fig:initial status}
 \end{figure}
 
-After finishing the configuration, the user can see the initial status of the blockchain system like Figure \ref{fig:initial status}. Each row represents the visualization of a miner or nonminer. A miner has a colorful head and two progress bars which display the status of the transaction pool and the mining activity. At the bottom of each row, it is the main area for visualizing the blockchain data structure. At the beginning, the grey block represents the genesis block.
+After finishing the configuration, the user can see the initial status of the blockchain system like Figure \ref{fig:initial status}. Each row represents the visualization of a miner or nonminer. A miner has a colorful head and two progress bars which display the status of the transaction pool and the mining activity. At the bottom of each row, it is the main area for visualizing the blockchain data structure. In the beginning, the grey block represents the genesis block.
 
 \begin{figure}[htb]
     \centering
@@ -122,11 +122,11 @@ During the mining processes, the following auxiliary information in the visualiz
 
 \begin{itemize}
     \item \textbf{Progress bars for the transaction pool} \\
-        It displays the level of capicity of the transaction pool.
+        It displays the level of capacity of the transaction pool.
     \item \textbf{Progress bars for the mining status} \\
         It presents the mining activities in real-time, i.e., how much time is remaining for solving a puzzle.
     \item \textbf{Number of total rewards} \\
-        It displays the caculation of the total rewards that belongs to the miner.
+        It displays the calculation of the total rewards that belongs to the miner.
     \item \textbf{Number of forks} \\
         On the top of each fork, there is a number that represents the number of forks.
 \end{itemize}
