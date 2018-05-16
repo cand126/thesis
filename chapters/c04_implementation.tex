@@ -1,4 +1,4 @@
-In this chapter, the details of implementation are discussed. It starts with the introduction of the overview and the architecture of the visualization application, and is followed by describing three important component in the application: the simulator, the watchdog, and the visualizer. In the next section, we provide an UML class diagram and several tables to describe the functionalities of the classes. Finally, the important algorithm about the mining processes is proposed to clarify  the operation of mining activities.
+In this chapter, the details of implementation are discussed. It starts with the introduction of the overview and the architecture of the visualization application, and is followed by describing three important component in the application: the simulator, the watchdog, and the visualizer. In the next section, we provide a UML class diagram and several tables to describe the functionalities of the classes. Finally, the important algorithm about the mining processes is proposed to clarify  the operation of mining activities.
 
 \section{Architecture}
 
@@ -48,11 +48,11 @@ The web application is responsible for the visualization and the interactions wi
         The GUI provides an index page and a settings page. The index page is for the visualization part, and the settings page displays all the defined parameters in the blockchain system. More details can be referred to Section \ref{sec:flow}.
 \end{itemize}
 
-The visualization is based on Three.js, a JavaScript framework for rendering 2D and 3D graphics. Three.js uses WebGL as the renderer, and the updating performance is 60 frame per second. The reason to choose Three.js as the visualization framework is that it is a famous open source project, and the community is active. Moreover, Three.js provides basic shapes, e.g., squares and lines, and handles the updating of frames. Therefore, we can focus on optimize the user experience of the visualization without considering the implementation of WebGL.
+The visualization is based on Three.js, a JavaScript framework for rendering 2D and 3D graphics. Three.js uses WebGL as the renderer, and the updating performance is 60 frames per second. The reason to choose Three.js as the visualization framework is that it is a famous open source project, and the community is active. Moreover, Three.js provides basic shapes, e.g., squares and lines, and handles the updating of frames. Therefore, we can focus on optimize the user experience of the visualization without considering the implementation of WebGL.
 
 \section{Simulator}
 
-The simulator is responsible for controlling the blockchain system and handling all the requests from the client. It is unique in the whole system, so it observes to the singleton pattern. The role of the simulator is like a "door" as it is the only gate to communicate with the blockchain system.
+The simulator is responsible for controlling the blockchain system and handling all the requests from the client. It is unique in the whole system, so it observes to the singleton pattern. The role of the simulator is like a ``door'' as it is the only gate to communicate with the blockchain system.
 
 After the blockchain system starts, the simulator initializes the status of the blockchain system, i.e., it instantiates necessary nodes according to the configuration. The waiting list of transactions in the transaction generator and the blockchain data structures of miners and nonminers are initialized by the simulator. 
 
@@ -382,7 +382,7 @@ In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visu
             \label{tab:class gui}
         \end{table}
     \item \textbf{Hash} (Table \ref{tab:class hash}) \\
-        This class generates a sequence of random numbers to simulate the hash functions. It avoids to put lots of computing resources to calculate hash values.
+        This class generates a sequence of random numbers to simulate the hash functions. It avoids putting lots of computing resources to calculate hash values.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 

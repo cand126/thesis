@@ -61,7 +61,7 @@ By scrolling down the settings page, the miners that exist in the blockchain sys
 
 The last part of the settings page is for the nonminers. Because nonminers do not mine a block by themselves, the represented color and the parameters of mining strategy are missing here, as Figure \ref{fig:settings of nonminer} shows.
 
-The user can give miners and nonminers nicknames such as Alice, Bob, etc., to make the relationship between the nodes more understandable. The nicknames may not be unique in the blockchain system for the reason that the nodes are recognized by their unique IDs. Moreover, the parameters are updated automatically while the user is typing. All of the parameters are generated randomly at first, so it is better to check and set each parameter manually.
+The user can give miners and nonminers nicknames such as Alice, Bob, etc., to make the relationship between the nodes more understandable. The nicknames may not be unique in the blockchain system for the reason that the nodes are recognized by their unique IDs. Moreover, the parameters are updated automatically while the user is typing. All the parameters are generated randomly at first, so it is better to check and set each parameter manually.
 
 In this example, we set Alice (red color), Bob (blue color), and Charlie (green color) as miners, and David and Eva as nonminers. For the mining strategy, we set the following three parameters to the same number for all miners.
 
@@ -116,7 +116,7 @@ In the next step, Figure \ref{fig:charlie mined a block} shows the influence of 
     \label{fig:charlie mined another block}
 \end{figure}
 
-Finally, Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. Fist, Charlie's parameter of \textit{minimum value of transactions} was set to 1, and then we published a transaction with 1 reward. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy.
+Finally, Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. First, Charlie's parameter of \textit{minimum value of transactions} was set to 1, and then we published a transaction with 1 reward. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy.
 
 During the mining processes, the following auxiliary information in the visualization is also helpful and dynamic.
 

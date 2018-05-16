@@ -104,7 +104,7 @@ In the blockchain system, there are three types of nodes that communicate with e
     \item \textbf{Transaction Generator} \\
         The transaction generator is unique in the blockchain system. It is responsible for generating and publishing transactions to miners.
     \item \textbf{Miner} \\
-        Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has their own transaction pools which contain all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
+        Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has his/her own transaction pool which contains all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
     \item \textbf{Nonminer} \\
         Nonminers only receive blocks from miners and publishes blocks to their neighbors.
 \end{itemize}
@@ -118,7 +118,7 @@ The blockchain data structures of different nodes are not always the same since 
     \label{fig:relationship of nodes}
 \end{figure}
 
-The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discards the block to prevent sending and receiving the same block repeatedly.
+The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through his/her neighbors. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discard the block to prevent sending and receiving the same block repeatedly.
 
 \section{Unstable Network}
 
@@ -152,7 +152,7 @@ Every miner has different mining strategies. There are four parameters that infl
 
 \begin{itemize}
     \item \textbf{Mining Time} \\
-        A miner needs a period of time to mine a block by solving the puzzles. Thus, this parameter reflects the computing power of miners and the difficulty of puzzles.
+        A miner needs a period to mine a block by solving the puzzles. Thus, this parameter reflects the computing power of miners and the difficulty of puzzles.
     \item \textbf{Minimum Value of Transactions} \\
         This parameter is used to select a set of candidate transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block.
     \item \textbf{Fixed Number of Transactions in Blocks} \\
