@@ -33,7 +33,7 @@ The reward and the privilege are related to the mining strategy. The \textit{val
     \label{tab:properties of transactions}
 \end{table}
 
-Miners can set the minimum value of transactions that are qualified to be mined. The reward is the number of money that will be assigned to the miner as a motivation because miners spend computing power to solve puzzles in a proof-of-work based blockchain system. The privilege is set to 0 when a transaction is created, and it is added by a specific number if the transaction is not selected to be mined each time during the mining activities. That is, the privilege prevents the transaction from starvation, i.e., the transaction will not have a chance to be mined because of its low reward.
+Miners can set the \textit{minimum value of transactions} that are qualified to be mined. The reward is the number of money that will be assigned to the miner as a motivation because miners spend computing power to solve puzzles in a proof-of-work based blockchain system. The privilege is set to 0 when a transaction is created, and it is added by a specific number if the transaction is not selected to be mined each time during the mining activities. That is, the privilege prevents the transaction from starvation, i.e., the transaction will not have a chance to be mined because of its low reward.
 
 To explain the value of transactions clearly, suppose that a transaction with the reward of 5 was generated and published, and a miner, Alice, received this transaction. At this time, Alice set the privilege of this transaction to 0. Now the total value of this transaction is
 
@@ -43,7 +43,7 @@ To explain the value of transactions clearly, suppose that a transaction with th
     value = reward + privilege = 5 + 0 = 5
 \end{gather*}
 
-Assume that Alice decides to mine a block, but she does not select this transaction as one of the candidates because Alice expects that the minimum value of transactions should be 6. Therefore, the privilege of this transaction is added by a specific number (1 in this example). Now the value of this transaction is
+Assume that Alice decides to mine a block, but she does not select this transaction as one of the candidates because Alice expects that the \textit{minimum value of transactions} should be 6. Therefore, the privilege of this transaction is added by a specific number (1 in this example). Now the value of this transaction is
 
 \begin{gather*}
     reward = 5 \\
@@ -159,7 +159,7 @@ Every miner has different mining strategy. There are four parameters that influe
         This parameter is used to select a set of candidate transactions that are considered to be mined into a block. It is the threshold of the values of transactions which are qualified to be selected when the miner decides to mine a block.
     \item \textbf{Number of Mined Transactions} \\
         This parameter is the size of a block, i.e., the number of transactions that a block must contain. The sizes of blocks are always fixed for the same miner.
-    \item \textbf{Minimum Number of Pending Transactions} \\
+    \item \textbf{Maximum Number of Pending Transactions} \\
         Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
 \end{itemize}
 

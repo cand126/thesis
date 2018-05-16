@@ -1,4 +1,4 @@
-In this chapter, the details of implementation are discussed. It starts with the introduction of the overview and the architecture of the visualization application, and is followed by describing three important component in the application: the simulator, the watchdog, and the visualizer. In the next section, we provide a UML class diagram and several tables to describe the functionalities of the classes. Finally, the important algorithm about the mining processes is proposed to clarify  the operation of mining activities.
+In this chapter, the details of implementation are discussed. It starts with the introduction of the overview and the architecture of the visualization application, and is followed by describing three important component in the application: the simulator, the watchdog, and the visualizer. In the next section, we provide a UML class diagram and several tables to describe the functionalities of the classes. Finally, the important algorithms about the mining processes are proposed to clarify the operation of mining activities.
 
 \section{Architecture}
 
@@ -9,7 +9,7 @@ In this chapter, the details of implementation are discussed. It starts with the
     \label{fig:architecture}
 \end{figure}
 
-Figure \ref{fig:architecture} shows the whole architecture of the visualization application. The architecture contains a web app and a server, which are connected with WebSocket. WebSocket technology makes the real-time communications between the web app and the server possible, as the visualization of the real-time mining processes is necessary. The user can interact with the web application through the graphical user interface.
+Figure \ref{fig:architecture} shows the whole architecture of the visualization application. The architecture contains a web app and a server, which are connected with WebSocket. The WebSocket technology makes the real-time communications between the web app and the server possible, as the visualization of the real-time mining processes is necessary. The user can interact with the web application through the graphical user interface.
 
 The server maintains the blockchain system. It is composed of three components.
 
@@ -37,7 +37,7 @@ Since the nodes on the blockchain network can be regarded as agents on a multi-a
 
 In addition, Eve provides reliable communications with JSON-RPC protocols \cite{jsonrpc}. Therefore, agents can send and understand the JSON format data between each other, and they can be maintained independently in anywhere, e.g., on the cloud or desktops. Eve is an open source project which is implemented in JavaScript, and it is easy to learn. As a result, Eve allows us to construct a distributed blockchain system without worrying about the technical problems such as asynchronous and locking problems.
 
-The server is built in Node.js with Express framework because of it is based on the same programming language of Eve. During the runtime, a transaction generator, miners, and nonminers can be instantiated and destroyed at any time thanks to the flexibility of Eve.
+The server is built in Node.js with Express framework because they are based on the same programming language of Eve. During the runtime, a transaction generator, miners, and nonminers can be instantiated and destroyed at any time thanks to the flexibility of Eve.
 
 The web application is responsible for the visualization and the interactions with users. There are two components in the web application.
 
@@ -88,14 +88,14 @@ Three items are updated by the visualizer continuously.
     \item blockchain data structures
 \end{itemize}
 
-The status bars for transaction pools and the status bars for mining are auxiliary tools to help the user understand the events that are actually happening in mining activities. The status bar for transaction pools becomes longer if the pending transactions are growing and vice versa. The status bar for mining is usually empty, except that the miner is solving the puzzle. It increases each second when the mining activity continues. Unlike the real blockchain networks, the time of solving the puzzles is predictable in our visualization application, and it is defined in the parameter of the mining strategy. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The growth of the blockchain data structures is dynamic and real-time as the mining activities are in progress.
+The status bars for transaction pools and the status bars for mining are auxiliary tools to help the user understand the events that are actually happening in the mining activities. The status bar for the transaction pool becomes longer if the number of pending transactions is growing and vice versa. The status bar for mining is usually empty, except that the miner is solving the puzzle. It increases each second when the mining activity continues. Unlike the real blockchain networks, the time of solving the puzzles is predictable in our visualization application, and it is defined in the parameter of mining strategy. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The growth of the blockchain data structures is dynamic and real-time as the mining activities are in progress.
 
 The visualizer expresses fantastic blockchain visualization that is able to attract the user. In addition, it explains the steps of mining processes understandably, even for the viewers who are new to blockchain technology. The detail of the visualizer can be referred to \ref{sec:uml diagram}.
 
 \section{UML Diagram}
 \label{sec:uml diagram}
 
-In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notifies class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation. The following contains all the classes that compose the visualization application.
+In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visualization application. The blockchain system is based on the multi-agent system framework Eve. Abstract class \texttt{AbstractNode} inherits from class \texttt{Agent} in Eve, and class \texttt{TransactionGenerator}, class \texttt{Miner}, and class \texttt{Nonminer} inherit from it. The blockchain system is controlled by class \texttt{Simulator}, and class \texttt{Watchdog} monitors it and notifies class \texttt{Visualizer} when it is necessary to update. Class \texttt{GUI} provides the user interface and is able to interact with \texttt{Simulator}. Finally, a helper class \texttt{Hash} provides simulation functionalities of the hash computation. The following tables contain all the classes that compose the visualization application.
 
 \clearpage
 
@@ -403,7 +403,7 @@ In Figure \ref{fig:class diagram}, it demonstrates the class diagram of the visu
 \section{Algorithms}
 \label{sec:algorithms}
 
-The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithm about mining processes is the key parts of the entire system. The algorithm can be divided into three parts.
+The visualization focuses on the mining processes, i.e., generating and publishing blocks. Hence, the algorithm about the mining processes is the key parts of the entire system. The algorithm can be divided into three parts.
 
 \begin{itemize}
     \item Select Candidate Transactions
@@ -413,16 +413,16 @@ The visualization focuses on the mining processes, i.e., generating and publishi
 
 Before a miner starts to mine a block, he/she needs to select a set of candidate transactions for the transaction pool. Thus, these candidate transactions serve as the content of the mined block. After receiving a block, the node will check the layer of the new block, and switch to the new block if the blockchain becomes the longest.
 
-In Algorithm \ref{alg:select candidate transactions}, it states the procedure of selecting a set of candidate transactions. Assume the pending transactions in the transaction pool are sorted according to their values. There are two cases at the beginning of the algorithm. ``Maximum number of pending transactions'' is defined in the parameters of the mining strategy.
+In Algorithm \ref{alg:select candidate transactions}, it states the procedure of selecting a set of candidate transactions. Assume the pending transactions in the transaction pool are sorted according to their values. There are two cases at the beginning of the algorithm. \textit{Maximum number of pending transactions} is defined in the parameters of the mining strategy.
 
 \begin{enumerate}
     \item \textbf{the number of pending transactions in the transaction pool $\geq$ maximum number of pending transactions} \\
-        Because the mining strategy does not allow appending more pending transactions into the transaction pool, the miner must select a set of pending transactions. The minimum value of transactions, a parameter of mining strategy, is ignored here. Consequently, the miner will select from the transaction with the highest value, until the number of candidate transactions is enough for mining a block.
+        Because the mining strategy does not allow appending more pending transactions into the transaction pool, the miner must select a set of pending transactions. \textit{Minimum value of transactions}, a parameter of mining strategy, is ignored here. Consequently, the miner will continue selecting the transaction with the highest value in the transaction pool, until the number of candidate transactions is enough for mining a block.
     \item \textbf{the number of pending transactions in the transaction pool < maximum number of pending transactions} \\
-        In this case, the miner selects transactions which values are higher than the minimum value of transactions.
+        In this case, the miner selects transactions which values are higher than the \textit{minimum value of transactions}.
 \end{enumerate}
 
-In both cases, if a transaction is not selected as a candidate transaction, then the privilege of the transaction will increase. Finally, if the number of selected candidate transactions is larger than the number of transactions to be mined, then the miner will start to mine a block. Otherwise, the miner will put the candidate transactions back into the transaction pool and give up to mine a block.
+In both cases, if a transaction is not selected as a candidate transaction, then the privilege of the transaction will increase. Finally, if the number of selected candidate transactions is equal to the \textit{number of mined transactions}, then the miner will start to mine a block. Otherwise, the miner will put the candidate transactions back into the transaction pool and give up to mine a block.
 
 \clearpage
 \vspace*{\fill}
@@ -456,7 +456,7 @@ In both cases, if a transaction is not selected as a candidate transaction, then
         \EndFor
     \EndIf
     \State
-    \If{candidateTransactions.length $=$ number of transactions to be mined}
+    \If{candidateTransactions.length $=$ number of mined transactions}
         \State \Call{Mine}{candidateTransactions}
     \Else
         \State add candidateTransactions to pending transactions
@@ -470,7 +470,8 @@ In both cases, if a transaction is not selected as a candidate transaction, then
 
 \clearpage
 
-Regarding the mining algorithm (Algorithm \ref{alg:mining}), it simulates the process of solving a puzzle in the proof-of-work base blockchain system. After determining the candidate transactions, the miner starts a timer until it meets the duration of time that should be spent on mining. That is, it means that the miner solves the puzzle successfully. Thus, the miner is ready for generating and publishing the block.
+\vspace*{\fill}
+Regarding the mining algorithm (Algorithm \ref{alg:mining}), it simulates the process of solving a puzzle in the proof-of-work based blockchain system. After determining the candidate transactions, the miner starts a timer until it meets the duration of time that should be spent on mining. That is, it means that the miner solves the puzzle successfully. Thus, the miner is ready for generating and publishing the block.
 
 \begin{algorithm}[htb]
     \caption{Mining}
@@ -492,17 +493,20 @@ Regarding the mining algorithm (Algorithm \ref{alg:mining}), it simulates the pr
     \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+\vspace*{\fill}
 
 \clearpage
 
 Receiving a new block triggers the consensus protocol to resolve the longest blockchain (Algorithm \ref{alg:add block to blockchain}). There are two cases that will happen when receiving a new block.
 
 \begin{enumerate}
-    \item \textbf{the id of the previous block of the new block is empty} \\
+    \item \textbf{the ID of the previous block of the new block is empty} \\
         It happens because the new block was mined by the miner himself/herself. Therefore, the miner puts the new block on the top of the current blockchain, i.e., the miner adds the new block after the current block.
-    \item \textbf{the id of the previous block of the new block is not empty} \\
-        The consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that it is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
+    \item \textbf{the ID of the previous block of the new block is not empty} \\
+        The consensus protocol is very simple because we do not consider malicious nodes in the blockchain system currently. If the received block is at a higher layer, i.e., the blockchain becomes longer, then the node will switch the current block to the received block to ensures that he/she is working on the correct blockchain. Moreover, the transactions of the received block are deleted from the transaction pools because these transactions are not pending anymore.
 \end{enumerate}
+
+Last, the node publishes the received block through the blockchain network to make sure that every neighbor has the same blockchain data structure. In addition, the miner calculates and updates his/her total rewards when the blockchain becomes longer.
 
 \begin{algorithm}[htb]
     \caption{Add Block to Blockchain}
@@ -526,7 +530,4 @@ Receiving a new block triggers the consensus protocol to resolve the longest blo
     \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-
-Last, the node publishes the received block through the blockchain network to make sure that every neighbor has the same blockchain data structure. In addition, the miner calculates and updates his/her total rewards if the blockchain becomes longer.
-
 
