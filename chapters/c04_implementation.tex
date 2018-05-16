@@ -56,7 +56,7 @@ The simulator is responsible for controlling the blockchain system and handling 
 
 After the blockchain system starts, the simulator initializes the status of the blockchain system, i.e., it instantiates necessary nodes according to the configuration. The waiting list of transactions in the transaction generator and the blockchain data structures of miners and nonminers are initialized by the simulator. 
 
-When the user wants to change the parameters, i.e., the mining strategy and delays of networks, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The data are sent through WebSocket in real-time.
+When the user wants to change the parameters, i.e., the mining strategy and network delay, or the visualizer needs the information of transaction pools and blockchains, the simulator will interact with the blockchain system by setting the parameters or retrieving the required data. The data are sent through WebSocket in real-time.
 
 The simulator is an important component because it hides the details of the implementation of the blockchain system and provides a unique and robust interface for the requests from the client. As a result, it decouples the relationship between the web application and the blockchain system. The detail of the simulator can be referred to \ref{sec:uml diagram}.
 
