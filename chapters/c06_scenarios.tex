@@ -4,7 +4,7 @@ In this chapter, we explore three different scenarios that can be achieved by th
 
 In the first scenario, there is a fast miner who mines blocks much quicker than the other miners due to the mining strategy. With the low network delay, the fast miner can publish the blocks quickly. Therefore, none of the other miners can compete with the fast miner, i.e., only the fast miner can add blocks to the blockchain.
 
-In this experiment, there are three miners, Alice (red color), Bob (blue color), and Charlie (green color), who compete with each other in the blockchain system. The configuration of this experiment is provided in Configuration File \ref{lst:scenario 1}.
+In this experiment, there are three miners, Alice (red color), Bob (blue color), and Charlie (green color), who compete with each other in the blockchain system. The configuration of this experiment is provided in Listing \ref{lst:scenario 1}.
 
 \begin{lstlisting}[caption={Scenario 1}, label={lst:scenario 1}]
 {
@@ -155,7 +155,7 @@ In this experiment, there are three miners, Alice (red color), Bob (blue color),
 }
 \end{lstlisting}
 
-As the configuration file shows, Alice's mining strategy is the fastest because the parameters of \textit{Mining Time}, \textit{Minimum Value of Transactions}, and \textit{Fixed Number of Transactions in Blocks} are all set to 1. On the contrary, Bob's and Charlie's parameters are both higher than Alice's parameters. The parameters of network delay are all set to 1. Hence, the blockchain network is stable and fast and it only takes 1 second to publish the blocks to neighbors. For transactions, we defined a sequence of transactions which interval is 1 second.
+As the configuration file shows, Alice's mining strategy is the fastest because the parameters of \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} are all set to 1. On the contrary, Bob's and Charlie's parameters are both higher than Alice's parameters. The parameters of network delay are all set to 1. Hence, the blockchain network is stable and fast and it only takes 1 second to publish the blocks to neighbors. For transactions, we defined a sequence of transactions which interval is 1 second.
 
 \begin{figure}[htb]
     \centering
@@ -166,11 +166,11 @@ As the configuration file shows, Alice's mining strategy is the fastest because 
 
 In Figure \ref{fig:alice was a fast miner}, it demonstrates the results of the above configuration. Although some transactions have high number of reward, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all the 10 transactions were mined by Alice, even if Bob tried to mine a block at the seventh layer. 
 
-In summary, this scenario shows the competition between the miners. As our expectation, the mining strategy with the lowest \textit{Mining Time}, \textit{Minimum Value of Transactions} and \textit{Fixed Number of Transactions in Blocks} is the fastest one. Additionally, it shows that the orphaned block were handled by the visualization application correctly, as the fast miner still worked on the correct blockchain data structure.
+In summary, this scenario shows the competition between the miners. As our expectation, the mining strategy with the lowest \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} is the fastest one. Additionally, it shows that the orphaned block were handled by the visualization application correctly, as the fast miner still worked on the correct blockchain data structure.
 
 \section{Multiple Forks}
 
-In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delays, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues. Configuration File \ref{lst:scenario 2} is the configuration file for this scenario.
+In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
 
 \begin{lstlisting}[caption={Scenario 2}, label={lst:scenario 2}]
 {
@@ -317,7 +317,7 @@ In the second scenario, there are three miners who have the similar computing po
 }
 \end{lstlisting}
 
-In the configuration file, Alice's, Bob's and Charlie's parameters of the mining strategy are set to the same value. Therefore, it is expected that the three miners will always mine at the same time. The parameters of the network delay are higher than the parameters of \textit{Mining Time} to simulate the bad network conditions between three miners. The sequence of transactions are the same as Configuration File \ref{lst:scenario 1}.
+In the configuration file, Alice's, Bob's and Charlie's parameters of the mining strategy are set to the same value. Therefore, it is expected that the three miners will always mine at the same time. The parameters of the network delay are higher than the parameters of \textit{mining time} to simulate the bad network conditions between three miners. The sequence of transactions are the same as Listing \ref{lst:scenario 1}.
 
 \begin{figure}[htb]
     \centering
@@ -335,7 +335,7 @@ In Figure \ref{fig:alice, bob, and charlie competed with each other}, Alice, Bob
     \label{fig:the mining processes of scenario 2}
 \end{figure}
 
-In conclusion, it demonstrates that the visualization application is able to handle the forks correctly. Furthermore, the mining processes are also correct. However, there is a weak point in the visualization application. The forks cannot be merged in the current implementation because the parameters of the mining strategy are fixed during the visualization. Thus, the scenario of multiple forks in the visualization represent the scenario of the hard forks in the real blockchain networks. It should be improved to handle the scenario of the soft forks in the future.
+In conclusion, it demonstrates that the visualization application is able to handle the forks correctly. Furthermore, the mining processes of the competition are also correct. However, there is a weak point in the visualization application. The forks cannot be merged in the current implementation because the parameters of the mining strategy are fixed during the visualization. Thus, the scenario of multiple forks in the visualization represent the case of the hard forks in the real blockchain networks. It should be improved to handle the case of the soft forks in the future.
 
 \section{Limitation of Nodes and Transactions}
 
