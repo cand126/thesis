@@ -98,7 +98,7 @@ The user can publish a transaction at the bottom area of the screen. By entering
     \label{fig:alice and bob mined a block simultaneously}
 \end{figure}
 
-In Figure \ref{fig:alice and bob mined a block simultaneously}, it demonstrates that Alice and Bob competed with each other by adding a block at the same time. Because we published a transaction with reward of 3, Alice and Bob both decided to mine a block according to their mining strategies, i.e, the reward of the transaction is not less than their \textit{minimum value of the transactions}. As a result, the fork happened for the reason of simultaneous mining activities.
+In Figure \ref{fig:alice and bob mined a block simultaneously}, it demonstrates that Alice and Bob competed with each other by adding a block at the same time. Because we published a transaction with reward of 5, Alice and Bob both decided to mine a block according to their mining strategies, i.e, the reward of the transaction is not less than their \textit{minimum value of the transactions}. As a result, the fork happened for the reason of simultaneous mining activities.
 
 \begin{figure}[htb]
     \centering
@@ -116,7 +116,25 @@ In the next step, Figure \ref{fig:charlie mined a block} shows the influence of 
     \label{fig:charlie mined another block}
 \end{figure}
 
-Finally, Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. We published a transaction with reward of 1. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy, i.e., the \textit{minimum value of the transactions}.
+In Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. We published a transaction with reward of 1. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy, i.e., the \textit{minimum value of the transactions}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{application_demo5}
+    \caption{Overflow of transaction pools.}
+    \label{fig:overflow of transaction pools}
+\end{figure}
+
+Finally, Figure \ref{fig:overflow of transaction pools} shows the overflow of the transaction pools. First, the parameters of \textit{minimum value of the transactions} were all set to 15 for the three miners, and then we published many transactions with the reward of 1. Because of a large number of transactions with low reward is published, the transaction pools became full in a short time, and it was displayed in the progress bars for transaction pools. As mentioned in the mining algorithm, all the three miners are forced to mine a block due to the overflow of the transaction pools, i.e., the number of pending transactions is larger than 10 in this example. The result can be checked in Figure \ref{fig:alice, bob, and charlie were forced to mine}, and it is the same as the expectation that all miners mine blocks simultaneously.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{application_demo6}
+    \caption{Alice, Bob, and Charlie were forced to mine.}
+    \label{fig:alice, bob, and charlie were forced to mine}
+\end{figure}
+
+\clearpage
 
 During the mining processes, the following auxiliary information in the visualization is also helpful and dynamic.
 
@@ -125,8 +143,8 @@ During the mining processes, the following auxiliary information in the visualiz
         It displays the level of capacity of the transaction pool.
     \item \textbf{Progress bars for the mining status} \\
         It presents the mining activities in real-time, i.e., how much time is remaining for solving a puzzle.
-    \item \textbf{Number of total rewards} \\
-        It displays the calculation of the total rewards that belongs to the miner.
+    \item \textbf{Number of total reward} \\
+        It displays the calculation of the total reward that belongs to the miner.
     \item \textbf{Number of forks} \\
         On the top of each fork, there is a number that represents the number of forks.
 \end{itemize}
@@ -147,13 +165,15 @@ We provide a sample configuration file in Listing \ref{lst:sample of configurati
 
 First, for nodes, it is important to define a unique transaction generator at the beginning of the file, and then it is followed by miners and nonminers. The required properties for the transaction generator, miners, and nonminers are provided as the following.
 
+\clearpage
+
 \begin{enumerate}
-    \item \textbf{Transaction Generator} \\
+    \item \textbf{Transaction Generator}
         \begin{itemize}
             \item id
             \item type
         \end{itemize}
-    \item \textbf{Miner} \\
+    \item \textbf{Miner}
         \begin{itemize}
             \item id
             \item type
@@ -164,7 +184,7 @@ First, for nodes, it is important to define a unique transaction generator at th
             \item mineNumber
             \item maxPending
         \end{itemize}
-    \item \textbf{Nonminer} \\
+    \item \textbf{Nonminer}
         \begin{itemize}
             \item id
             \item type
