@@ -326,18 +326,25 @@ In the configuration file, Alice's, Bob's and Charlie's parameters of the mining
     \label{fig:alice, bob, and charlie competed with each other}
 \end{figure}
 
-In Figure \ref{fig:alice, bob, and charlie competed with each other}, Alice, Bob, and Charlie compete with each other for a long time because the duration of mining time is shorter than the duration of publishing blocks. The miners are divided into three groups which work on different blockchain data structures because every miner considered that their own blockchain is the longest. It can be checked that the mining processes visualized the mining processes according to the above description, as Figure \ref{fig:the mining processes of scenario 2} shows.
+In Figure \ref{fig:alice, bob, and charlie competed with each other}, Alice, Bob, and Charlie compete with each other for a long time because the duration of mining time is shorter than the duration of publishing blocks. The miners are divided into three groups which work on different blockchain data structures because every miner considered that their own blockchain is the longest. It can be checked that the mining processes visualized the mining processes according to the above description, as Figure \ref{fig:mining processes of scenario 2} shows.
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{scenario_case2_2}
-    \caption{The mining processes of scenario 2.}
-    \label{fig:the mining processes of scenario 2}
+    \caption{Mining processes of scenario 2.}
+    \label{fig:mining processes of scenario 2}
 \end{figure}
 
 In conclusion, it demonstrates that the visualization application is able to handle the forks correctly. Furthermore, the mining processes of the competition are also correct. However, there is a weak point in the visualization application. The forks cannot be merged in the current implementation because the parameters of the mining strategy are fixed during the visualization. Thus, the scenario of multiple forks in the visualization represent the case of the hard forks in the real blockchain networks. It should be improved to handle the case of the soft forks in the future.
 
 \section{Limitation of Nodes and Transactions}
 
-Through experiments, we found that the maximum number of nodes that can be handled by the application is 15 because of the limitation of the visualization engine, i.e., the Three.js library. The visualization engine cannot creat too many canvases due to the performance issue. Hence, the sum of the number of miners and nonminers is limited to 15. On the other hand, the number of transactions that can be handled should be unlimited. We tested it by publishing 100 transactions, and the application still operates correctly.
+Through experiments, we found that the maximum number of nodes that can be handled by the application is 15 because of the limitation of the visualization engine, i.e., the Three.js library. The visualization engine cannot creat too many canvases due to the performance issue. Hence, the sum of the number of miners and nonminers is limited to 15. On the other hand, the number of transactions that can be handled should be unlimited. We tested it by publishing 100 transactions, and the application still operates correctly. Figure \ref{fig:result of scenario 3} shows the result of this experiment.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{scenario_case3}
+    \caption{Result of scenario 3.}
+    \label{fig:result of scenario 3}
+\end{figure}
 
