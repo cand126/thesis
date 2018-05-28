@@ -3,7 +3,7 @@ In this chapter, we introduce the usage of the visualization application. It beg
 \section{Flow}
 \label{sec:flow}
 
-In this section, the general flow of the usage of the visualization application is guided. In the beginning, the blockchain system is empty, and the user can either upload a configuration file or add nodes manually (Figure \ref{fig:start of the application}). The introduction starts with creating nodes and publishing transactions manually, as it is clearer to begin with a simple example.
+The general flow of the visualization application is guided here. In the beginning, the blockchain system is empty, and the user can either upload a configuration file or add nodes manually (Figure \ref{fig:start of the application}). The introduction starts with creating nodes and publishing transactions manually, as it is clearer to begin with a simple example.
 
 \begin{figure}[htb]
     \centering
@@ -71,7 +71,7 @@ In this example, we set Alice (red color), Bob (blue color), and Charlie (green 
     \item Maximum Number of Pending Transactions: 10
 \end{itemize}
 
-For the parameters of \textit{minimum value of transactions}, we set 1 for Alice, 5 for Bob, and 9 for Charlie. Hence, Alice is expected to mine blocks faster than Bob and Charlie. For the network delay, we set all the parameters to 1 second.
+For the parameters of \textit{minimum value of transactions}, we set 1 for Alice, 5 for Bob, and 9 for Charlie. Therefore, Alice is expected to mine blocks faster than Bob and Charlie. For the network delay, we set all the parameters to 1 second.
 
 \begin{figure}[htb]
     \centering
@@ -98,7 +98,7 @@ The user can publish a transaction at the bottom area of the screen. By entering
     \label{fig:alice and bob mined a block simultaneously}
 \end{figure}
 
-In Figure \ref{fig:alice and bob mined a block simultaneously}, it demonstrates that Alice and Bob competed with each other by adding a block at the same time. Because we published a transaction with reward of 5, Alice and Bob both decided to mine a block according to their mining strategies, i.e, the reward of the transaction is not less than their \textit{minimum value of the transactions}. As a result, the fork happened for the reason of simultaneous mining activities.
+Figure \ref{fig:alice and bob mined a block simultaneously} demonstrates that Alice and Bob competed with each other by adding a block at the same time. Because we published a transaction with reward of 5, Alice and Bob both decided to mine a block according to their mining strategies, i.e, the reward of the transaction is not less than their \textit{minimum value of the transactions}. As a result, the fork happened for the reason of simultaneous mining activities.
 
 \begin{figure}[htb]
     \centering
@@ -116,7 +116,7 @@ In the next step, Figure \ref{fig:charlie mined a block} shows the influence of 
     \label{fig:charlie mined another block}
 \end{figure}
 
-In Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. We published a transaction with reward of 1. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy, i.e., the \textit{minimum value of the transactions}.
+Figure \ref{fig:charlie mined another block} shows the process of selecting candidate transactions. We published a transaction with reward of 1. The result was that Charlie mined a block after about 8 seconds due to the process of selecting candidate transactions. Normally, a miner starts to select candidate transactions in every second, and the privileges of transactions that are not selected were added by 1 each time. Consequently, the value of the published transaction was becoming 9 after 8 seconds, and it satisfied Charlie's mining strategy, i.e., the \textit{minimum value of the transactions}.
 
 \begin{figure}[htb]
     \centering
@@ -125,7 +125,7 @@ In Figure \ref{fig:charlie mined another block} shows the process of selecting c
     \label{fig:overflow of transaction pools}
 \end{figure}
 
-Finally, Figure \ref{fig:overflow of transaction pools} shows the overflow of the transaction pools. First, the parameters of \textit{minimum value of the transactions} were all set to 15 for the three miners, and then we published many transactions with the reward of 1. Because of a large number of transactions with low reward is published, the transaction pools became full in a short time, and it was displayed in the progress bars for transaction pools. As mentioned in the mining algorithm, all the three miners are forced to mine a block due to the overflow of the transaction pools, i.e., the number of pending transactions is larger than 10 in this example. The result can be checked in Figure \ref{fig:alice, bob, and charlie were forced to mine}, and it is the same as the expectation that all miners mine blocks simultaneously.
+Finally, Figure \ref{fig:overflow of transaction pools} shows the overflow of the transaction pools. First, the parameters of \textit{minimum value of the transactions} were all set to 15 for the three miners, and then we published multiple transactions with the reward of 1. Because of a large number of transactions with low reward is published, the transaction pools became full in a short time, and it was displayed in the progress bars for transaction pools. As mentioned in the mining algorithm, all the three miners are forced to mine a block due to the overflow of the transaction pools, i.e., the number of pending transactions is larger than 10 in this example. The result can be checked in Figure \ref{fig:alice, bob, and charlie were forced to mine}, and it is the same as the expectation that all miners mine blocks simultaneously.
 
 \begin{figure}[htb]
     \centering
@@ -192,7 +192,7 @@ First, for nodes, it is important to define a unique transaction generator at th
         \end{itemize}
 \end{enumerate}
 
-Thd \textit{id} of nodes can be a string with arbitrary length, and here we use 8 characters and digits to represent the hash value. The \textit{type} distinguishes different nodes, and the valid values are \textit{generator}, \textit{miner}, and \textit{nonminer}. The \textit{name} of miners and nonminers are nicknames for them. Miners also have unique \textit{colors} to differentiate blocks in the visualization. The parameters of \textit{miningTime}, \textit{minValue}, \textit{mineNumber}, and \textit{maxPending} are from the mining strategy, which are \textit{mining time}, \textit{minimum value of transactions}, \textit{number of mined transactions}, \textit{minimum number of pending transactions} respectively.
+Thd \textit{id} of nodes can be a string with arbitrary length, and here we use 8 characters and digits to represent the identifier. The \textit{type} distinguishes different nodes, and the valid values are \textit{generator}, \textit{miner}, and \textit{nonminer}. The \textit{name} of miners and nonminers are nicknames for them. Miners also have unique \textit{colors} to differentiate blocks in the visualization. The parameters of \textit{miningTime}, \textit{minValue}, \textit{mineNumber}, and \textit{maxPending} are from the mining strategy, which are \textit{mining time}, \textit{minimum value of transactions}, \textit{number of mined transactions}, \textit{minimum number of pending transactions} respectively.
 
 The second part of the configuration file is a list of delay between each node. Each node has a block that begins with the \textit{id}, and then it is followed by a list of the neighbors and the amount of delay. As mentioned before, the transaction generator only has miners as neighbors, while miners and nonminers connect with each other. Moreover, the transaction generator is not in the neighbors of miners and nonminers because it is meaningless to send blocks to the transaction generator.
 

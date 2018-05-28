@@ -2,11 +2,11 @@ Before continuing to the later part, it is worth to define the blockchain system
 
 \section{Data Types}
 
-There are only two types of data structures that are used in the blockchain system, \textit{transactions} and \textit{blocks}. They are published and received by nodes continuously in the same blockchain network. A transaction contains information that is used in the blockchain system, such as the trade information of cryptocurrency or the information of an item. A block contains a number of transactions that are mined by a miner, and blocks are chained together to form a tree structure that represents the blockchain data structure. The transactions that are included in a block are considered to be confirmed if the block is at the longest blockchain.
+There are only two types of data structures that are used in the blockchain system, \textit{transactions} and \textit{blocks}. These are published and received by nodes continuously in the same blockchain network. A transaction contains information such as the trade information of cryptocurrencies or the information of an item. A block contains a number of transactions that are mined by a miner, and blocks are chained together to form a tree structure that represents the blockchain data structure. The transactions that are included in a block are considered to be confirmed if the block is in the longest blockchain.
 
-For transactions (Table \ref{tab:properties of transactions}), the properties contain the \textit{ID}, the \textit{type}, the \textit{timestamp}, the \textit{reward}, and the \textit{privilege}. The ID represents the hash value of the transaction in a blockchain system. Here we use 8 random characters and digits to simplify the representation. The type indicates that the data is a valid transaction data structure. The timestamp is decided at the time the transaction is created. 
+For transactions (Table \ref{tab:properties of transactions}), the properties contain the \textit{ID}, the \textit{type}, the \textit{timestamp}, the \textit{reward}, and the \textit{privilege}. The \textit{ID} represents the identifier of the transaction in a blockchain system. Here we use 8 random characters and digits to simplify the representation. The \textit{type} indicates that the data structure is a transaction. The \textit{timestamp} is the time when the transaction is created. 
 
-The reward and the privilege are related to the mining strategy. The \textit{value} of a transaction is the sum of the reward and the privilege, as the equation \ref{eq:transaction value} states.
+The \textit{reward} and the \textit{privilege} are related to the mining strategy. The \textit{value} of a transaction is the sum of the reward and the privilege, as the equation \ref{eq:transaction value} states.
 
 \begin{equation} \label{eq:transaction value}
     value = reward + privilege
@@ -22,9 +22,9 @@ The reward and the privilege are related to the mining strategy. The \textit{val
         \hline
         \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
         \hline
-        ID & the hash value of the transaction. \\ 
+        ID & the identifier of the transaction. \\ 
         type & is always ``transaction''. \\ 
-        timestamp & the time that the transaction is created. \\ 
+        timestamp & the time when the transaction is created. \\ 
         reward & the number of rewards that the miner will receive. \\ 
         privilege & to prevent the starvation of the transaction. \\ 
         \hline
@@ -33,7 +33,7 @@ The reward and the privilege are related to the mining strategy. The \textit{val
     \label{tab:properties of transactions}
 \end{table}
 
-Miners can set the \textit{minimum value of transactions} that are qualified to be mined. The reward is the number of money that will be assigned to the miner as a motivation because miners spend computing power to solve puzzles in a proof-of-work based blockchain system. The privilege is set to 0 when a transaction is created, and it is added by a specific number if the transaction is not selected to be mined each time during the mining activities. That is, the privilege prevents the transaction from starvation, i.e., the transaction will not have a chance to be mined because of its low reward.
+Miners can set the \textit{minimum value of transactions} that are qualified to be mined. The reward is the number of money that will be assigned to the miner as a motivation because miners spend computing power to solve puzzles in a proof-of-work based blockchain system. The privilege is set to 0 when a transaction is created, and it is added by a specific number if the transaction is not selected to be mined each time during the mining activities. However, the increased value does not change the reward that the miner will receive. That is, the privilege only prevents the transaction from starvation, i.e., the transaction will not have a chance to be mined because of its low reward.
 
 To explain the value of transactions clearly, suppose that a transaction with the reward of 5 was generated and published, and a miner, Alice, received this transaction. At this time, Alice set the privilege of this transaction to 0. Now the total value of this transaction is
 
@@ -43,7 +43,7 @@ To explain the value of transactions clearly, suppose that a transaction with th
     value = reward + privilege = 5 + 0 = 5
 \end{gather*}
 
-Assume that Alice decides to mine a block, but she does not select this transaction as one of the candidates because Alice expects that the \textit{minimum value of transactions} should be 6. Therefore, the privilege of this transaction is added by a specific number (1 in this example). Now the value of this transaction is
+Assume that Alice decides to mine a block, but she does not select this transaction as one of the candidates because Alice expects that the \textit{minimum value of transactions} should be 6. Therefore, Alice adds the privilege of this transaction by a specific number (1 in this example). Now the value of this transaction is
 
 \begin{gather*}
     reward = 5 \\
@@ -51,7 +51,7 @@ Assume that Alice decides to mine a block, but she does not select this transact
     value = reward + privilege = 5 + 1 = 6
 \end{gather*}
 
-Thus, when Alice decides to mine a block next time, she will select this transaction as one of the candidates because the value of this transaction is not less than 6. It demonstrates that the privilege prevents this transaction from starvation. Actually, we design this mechanism because a transaction should not be ignored forever in a real blockchain system such as Bitcoin, even if the reward of the transaction is very low.
+Thus, when Alice decides to mine a block next time, she will select this transaction as one of the candidates because the value of this transaction is not less than 6. It demonstrates that the privilege prevents this transaction from starvation, but Alice still gets the reward of 5 by mining this transaction. We design this mechanism because a transaction should not be ignored forever in the visualization tool, but in the real world, the one who published the transaction with low reward should increase the reward by themselves.
 
 \begin{table}[htb]
     \centering
@@ -61,9 +61,9 @@ Thus, when Alice decides to mine a block next time, she will select this transac
         \hline
         \textit{Properties} & \multicolumn{1}{c}{\textit{Description}} \\
         \hline
-        ID & the hash value of the block. \\ 
+        ID & the identifier of the block. \\ 
         type & is always ``block''. \\ 
-        timestamp & the time that the block is created. \\ 
+        timestamp & the time when the block is created. \\ 
         miner & the public address of the miner. \\ 
         previous & the hash value of the previous block. \\ 
         layer & indicates the position of the block in the blockchain. \\ 
@@ -75,9 +75,9 @@ Thus, when Alice decides to mine a block next time, she will select this transac
     \label{tab:properties of blocks}
 \end{table}
 
-For blocks (Table \ref{tab:properties of blocks}), the properties contain the \textit{ID}, the \textit{type}, the \textit{timestamp}, the \textit{miner}, the \textit{previous}, the \textit{layer}, the \textit{color}, and the contained \textit{transactions}. The ID represents the hash value of the block in a blockchain system. Here we also use 8 random characters and digits as the hash value. The type indicates that the data is a valid block data structure. The timestamp is decided at the time the block is created. The miner represents the public address of the miner who mined this block, and it is 8 random characters and digits. The previous contains the ID of the previous block that is chained in the same blockchain. The block contains an array of transactions, and the total reward of the block is the sum of these transactions.
+For blocks (Table \ref{tab:properties of blocks}), the properties contain the \textit{ID}, the \textit{type}, the \textit{timestamp}, the \textit{miner}, the \textit{previous}, the \textit{layer}, the \textit{color}, and the contained \textit{transactions}. The \textit{ID} represents the identifier of the block in a blockchain system. Here we also use 8 random characters and digits as the hash value. The \textit{type} indicates that the data structure is a block. The \textit{timestamp} is the time when the block is created. The \textit{miner} represents the public address of the miner who mined this block, and it is 8 random characters and digits. The \textit{previous} contains the ID of the previous block that is chained in the same blockchain. The \textit{block} contains an array of transactions, and the total reward of the block is the sum of these transactions.
 
-The layer and color are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the results of the blockchain databases between different nodes are the same. The different colors distinguish the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner and vice versa.
+The \textit{layer} and \textit{color} are useful for the visualization of the blockchains. The layer defines the position of a block in a blockchain and ensures that the results of the blockchain databases between different nodes are the same. The different colors distinguish the miner of the blocks in the visualization. The blocks with the same color mean that these blocks are from the same miner.
 
 \begin{figure}[htb]
     \centering
@@ -97,7 +97,7 @@ The layer and color are useful for the visualization of the blockchains. The lay
     \label{fig:visualization of blocks}
 \end{figure}
 
-To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to Figure \ref{fig:visualization of blocks}, Alice and Bob mined two blocks individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The numbers of layers of the blocks are indicated on the top of the figures. In each layer, the numbers of different colors of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at a different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain databases are the same between every node, but remains the difference of the blockchain data structures.
+To illustrate the positions of blocks in the visualization, suppose that there are two miners, Alice and Bob. Alice's color is red, and Bob's color is blue. According to Figure \ref{fig:visualization of blocks}, Alice and Bob mined two blocks individually. The grey block represents the genesis block. The red blocks are from Alice, and the blue ones are from Bob. The numbers of layers of the blocks are indicated on the top of the figures. In each layer, the numbers of different colors of blocks are the same. However, the vertical positions of the blocks are not always the same. It is because that each miner received the same block at a different time. In this example, Alice and Bob put their own blocks on the top of the layer because they received their own blocks earlier. As a result, the layer guarantees that the blockchain databases are equal between every node, but remains the difference of received time.
 
 \section{Nodes}
 
@@ -106,12 +106,12 @@ In the blockchain system, there are three types of nodes that communicate with e
     \item \textbf{Transaction Generator} \\
         The transaction generator is unique in the blockchain system. It is responsible for generating and publishing transactions to miners.
     \item \textbf{Miner} \\
-        Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has his/her own transaction pool which contains all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
+        Miners are the most important nodes in the visualization because they mine and publish blocks according to their individual mining strategies. Each miner has her own transaction pool which contains all the pending transactions. Because the transaction generator publishes the transactions through the unstable network, each miner has different sets of pending transactions at the same time.
     \item \textbf{Nonminer} \\
         Nonminers only receive blocks from miners and publishes blocks to their neighbors.
 \end{itemize}
 
-The blockchain data structures of different nodes are not always the same since the blockchain system is active. It is because of the unstable peer-to-peer network between different nodes, and the correct and real-time visualization of the different blockchain data structures is the main feature of our application. For example, Figure \ref{fig:visualization of blocks} shows the difference between Alice's and Bob's blockchain data structures.
+The blockchain data structures of different nodes are not always the same since the blockchain system is started. It is because of the unstable peer-to-peer network between different nodes, and the correct and real-time visualization of the different blockchain data structures is the main feature of our application. For example, Figure \ref{fig:visualization of blocks} shows the difference between Alice's and Bob's blockchain data structures.
 
 \begin{figure}[htb]
     \centering
@@ -120,11 +120,11 @@ The blockchain data structures of different nodes are not always the same since 
     \label{fig:relationship of nodes}
 \end{figure}
 
-The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, he/she will publish the block through the blockchain network. Other miners and nonminers will again publish the received block to their neighbors after they received the block from other miners or nonminers. If a miner or a nonminer receives duplicate blocks, then he/she will discard the block to prevent sending and receiving the same block repeatedly.
+The relationship of different types of nodes is shown in Figure \ref{fig:relationship of nodes}. In the beginning, the transaction generator publishes transactions to the miners. When a miner mines a block, she will publish the block through the blockchain network. Other miners and nonminers will again publish the received block to their neighbors and they validate it after receiving. If a miner or a nonminer receives duplicate blocks, then she will discard the block to prevent sending and receiving the same block repeatedly.
 
 \section{Unstable Network}
 
-The network between each node is unstable due to the characteristic of peer-to-peer networks. Therefore, the publishments of transactions and blocks suffer a period of delay. Because of the unstable network, forks will happen in the blockchain visualization while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
+The network between each node is fragile due to the characteristic of peer-to-peer networks. Therefore, the publishments of transactions and blocks have a period of delay. Because of that, forks will happen in the blockchain visualization while several miners are mining simultaneously. Moreover, nodes could be partitioned into different groups and compete with other groups.
 
 \begin{figure}[htb]
     \centering
@@ -144,7 +144,7 @@ The network between each node is unstable due to the characteristic of peer-to-p
     \label{fig:groups of miners}
 \end{figure}
 
-For example, in Figure \ref{fig:groups of miners}, there are four miners, Alice (red color), Bob (blue color), Charlie (green color), and David (yellow color). They are partitioned into two groups, i.e., Alice and Bob in group 1 and Charlie and Bob in group 2, because the connections of different groups suffer high network delay, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest because they share information with other members in the same group more easily than those in the other groups. This phenomenon is displayed in the visualization clearly that Alice and Bob put their blocks on the top, and the same for Charlie and David.
+For example, in Figure \ref{fig:groups of miners}, there are four miners, Alice (red color), Bob (blue color), Charlie (green color), and David (yellow color). They are partitioned into two groups, i.e., Alice and Bob in group 1 and Charlie and Bob in group 2, because the connections of different groups suffer high network delay, and the networks of the miners in the same group are much faster. Therefore, the miners in the same group consider that their own blockchain is the longest because they share information with other members in the same group more easily than those in the other groups. The phenomenon that Alice and Bob put their blocks on the top and the same for Charlie and David is displayed in the visualization correctly.
 
 \clearpage
 
@@ -160,13 +160,13 @@ Every miner has different mining strategy. There are four parameters that influe
     \item \textbf{Number of Mined Transactions} \\
         This parameter is the size of a block, i.e., the number of transactions that a block must contain. The sizes of blocks are always fixed for the same miner.
     \item \textbf{Maximum Number of Pending Transactions} \\
-        Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly in the blockchain system when the minimum value of transactions is set by a large number.
+        Miners store pending transactions in the transaction pools. This parameter prevents that a miner responds too slowly to the blockchain system when the minimum value of transactions is set by a large number.
 \end{itemize}
 
 The four parameters make the mining behaviors of the miners different from each other. The influences of the mining strategy to the blockchain system under specific environment can be identified clearly through the visualization. More details of how the mining strategy is applied in the mining activities can be found in Section \ref{sec:algorithms}.
 
 \section{Consensus Protocol}
 
-The consensus protocol that is applied in the blockchain system is proof-of-work. Under proof-of-work protocol, miners solve mathematical puzzles with their computing power. By comparing the blockchain data structures between each node, the longest blockchain can be identified easily. Miners always switch to the longest blockchain as soon as possible to ensure that they are working on the correct fork of blockchains. Additionally, miners only get rewards by adding blocks to the correct blockchain.
+The consensus protocol that is applied in the blockchain system is proof-of-work. Under proof-of-work protocol, miners solve cryptographic puzzles with their computing power. By comparing the blockchain data structures between each node, the longest blockchain can be identified easily. Miners always switch to the longest blockchain immediately to ensure that they are working on the correct fork of blockchains. Additionally, miners only get rewards by adding blocks to the longest blockchain.
 
-The parameters of the mining strategy are designed for proof-of-work protocol. Therefore, the parameters will be entirely different if the applied consensus protocol is changed, e.g., proof-of-stake, in the future.
+The parameters of the mining strategy are designed for proof-of-work protocol. Therefore, the parameters will be entirely different if the applied consensus protocol is changed to other ones such as proof-of-stake in the future.

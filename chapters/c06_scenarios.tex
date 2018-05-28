@@ -164,13 +164,13 @@ As the configuration file shows, Alice's mining strategy is the fastest because 
     \label{fig:alice was a fast miner}
 \end{figure}
 
-In Figure \ref{fig:alice was a fast miner}, it demonstrates the results of the above configuration. Although some transactions have high number of reward, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all the 10 transactions were mined by Alice, even if Bob tried to mine a block at the seventh layer. 
+Figure \ref{fig:alice was a fast miner} demonstrates the results of the above configuration. Although some transactions have high number of reward, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all the 10 transactions were mined by Alice, even if Bob tried to mine a block at the seventh layer. 
 
 In summary, this scenario shows the competition between the miners. As our expectation, the mining strategy with the lowest \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} is the fastest one. Additionally, it shows that the orphaned block were handled by the visualization application correctly, as the fast miner still worked on the correct blockchain data structure.
 
 \section{Multiple Forks}
 
-In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers his/her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
+In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
 
 \begin{lstlisting}[caption={Scenario 2}, label={lst:scenario 2}]
 {
