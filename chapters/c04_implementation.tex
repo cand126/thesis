@@ -80,17 +80,25 @@ With the help of the watchdog, the activities that happened in the blockchain sy
 
 The visualizer is responsible for rendering the data that are sent from the watchdog. It is the main part of the visualization application because it renders the real-time visualization. 
 
-Three items are updated by the visualizer continuously.
+Three items are updated by the visualizer continuously, which are marked in Figure \ref{fig:interface of the visualizer}.
 
 % TODO: use screenshot to explain
 
-\begin{itemize}
+\begin{enumerate}
     \item status bars for transaction pools
     \item status bars for mining
     \item blockchain data structures
-\end{itemize}
+    \item total reward
+\end{enumerate}
 
-The status bars for transaction pools and the status bars for mining are auxiliary tools to help the user understand the events that are actually happening in the mining activities. The status bar for the transaction pool becomes longer if the number of pending transactions is growing and vice versa. The status bar for mining is usually empty, except that the miner is solving the puzzle. It increases each second when the mining activity continues. Unlike the real blockchain networks, the time of solving the puzzles is predictable in our visualization application, and it is defined in the parameter of mining strategy. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The growth of the blockchain data structures is dynamic and real-time as the mining activities are in progress.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{impl_visualizer}
+    \caption{Interface of the visualizer.}
+    \label{fig:interface of the visualizer}
+\end{figure}
+
+The status bars for transaction pools and the status bars for mining are auxiliary tools to help the user understand the events that are actually happening in the mining activities. The status bar for the transaction pool becomes longer if the number of pending transactions is growing and vice versa. The status bar for mining is usually empty, except that the miner is solving the puzzle. It increases each second when the mining activity continues. Unlike the real blockchain networks, the time of solving the puzzles is predictable in our visualization application, and it is defined in the parameter of mining strategy. The main area of the visualization is reserved for the blockchain data structures. Squares represent blocks, and they are chained by lines. Different colors of the squares represent the different sources of the blocks. The growth of the blockchain data structures is dynamic and real-time as the mining activities are in progress. The total reward of the miner increases when she adds the block to the longest blockchain. 
 
 The visualizer expresses fantastic blockchain visualization that is able to attract the user. In addition, it explains the steps of mining processes understandably, even for the viewers who are new to blockchain technology. The detail of the visualizer can be referred to \ref{sec:uml diagram}.
 
