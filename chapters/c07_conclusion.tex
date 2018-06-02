@@ -4,14 +4,7 @@ This thesis proposes the first trial to visualize the complex and dynamic mining
 
 The visualization application helps researchers to conduct experiments and focus on the mining activities which are influenced by the network delay and the mining strategy in the blockchain system. By providing a configuration file which defines all the properties and parameters in the blockchain system, the same mining processes can be replayed by the visualization application. With the discussions of the scenarios, it proves the potential applications of the visualization application.
 
-The selection of the multi-agent system rather than using blockchain platforms such as Ethereum is a right choice in the implementation. Because we need different mining strategies for each miner, it cannot be achieved in these blockchain platforms. The only way is to implement a simulation of a blockchain system by ourselves.
-
-In the visualization, the sizes of blocks are the same even if their values are different. Many visualization tools such as Bitcoincity and Bitbonkers distinguish different sizes of blocks. 
-
-% reflection:
-% different size of blocks
-% different parameters
-% ethereum?
+The selection of the multi-agent system rather than using blockchain platforms such as Ethereum is a right choice in the implementation. Because we need different mining strategies for each miner, it cannot be achieved in these blockchain platforms. As a result, the only way is to implement a simulation of a blockchain system by ourselves.
 
 \section{Future Work}
 
@@ -28,4 +21,6 @@ In the future, we plan to do the following improvements to the visualization app
         To solve the merge problem in the second scenario, the naive solution is to provide a randomness to the parameters in the blockchain system. For example, the duration of mining time should be randomness between a range because solving a puzzle cannot be predicted in the real blockchain system.
     \item \textbf{Confirmation of blocks} \\
         The longest blockchain sometimes changes in the visualization. It can be improved to implement the confirmation of blocks. For example, a block is confirmed if it is 6 blocks deep and on the longest blockchain in Bitcoin.
+    \item \textbf{Different sizes of blocks} \\
+        In the visualization, the sizes of blocks are the same even if their values are different. Many visualization tools such as Bitcoincity and Bitbonkers distinguish different sizes of blocks. Therefore, it is a good feature to let the users get more information about the reward.
 \end{itemize}
