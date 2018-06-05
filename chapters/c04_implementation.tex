@@ -439,13 +439,13 @@ In both cases, if a transaction is not selected as a candidate transaction, then
     \label{alg:select candidate transactions}
 \begin{algorithmic}[1]
     \Procedure{Select Transactions}{}
-    \State candidateTransactions := empty
+    \State candidateTransactions := $\emptyset$
     \State
     \If{transactionPool.length $\geq$ maximum number of pending transactions}
         \ForAll{pending transaction}
             \If{candidateTransactions.length $<$ \\ 
                 \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent}number of transactions to be mined}
-                \State add this transaction to candidateTransactions
+                \State candidateTransactions $\cup$ this transaction
                 \State remove this transaction from transaction pool
             \Else
                 \State add the privilege of this transaction by 1
@@ -456,7 +456,7 @@ In both cases, if a transaction is not selected as a candidate transaction, then
             \State value $\gets$ reward $+$ privilege
             \If{value $>$ minimum value of transactions \textit{AND} \\ 
             \hspace{\algorithmicindent}\hspace{\algorithmicindent}\hspace{\algorithmicindent} candidateTransactions.length $<$ number of transactions to be mined}
-                \State add this transaction to candidateTransactions
+                \State candidateTransactions $\cup$ this transaction
                 \State remove this transaction from transaction pool
             \Else
                 \State add the privilege of this transaction
