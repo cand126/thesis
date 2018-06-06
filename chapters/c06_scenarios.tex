@@ -21,7 +21,7 @@ In summary, this scenario shows the competition between the miners. As our expec
 
 \section{Scenario II: Multiple Forks}
 
-In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks suffers high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
+In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks has high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
 
 In the configuration file, Alice's, Bob's and Charlie's parameters of the mining strategy are set to the same value. Therefore, it is expected that the three miners will always mine at the same time. The parameters of the network delay are higher than the parameters of \textit{mining time} to simulate the bad network conditions between three miners. The sequence of transactions is the same as Listing \ref{lst:scenario 1}.
 
