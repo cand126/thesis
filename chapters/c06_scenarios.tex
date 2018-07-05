@@ -6,7 +6,57 @@ In the first scenario, there is a fast miner who mines blocks much quicker than 
 
 In this experiment, there are three miners, Alice (red color), Bob (blue color), and Charlie (green color), who compete with each other in the blockchain system. The configuration of this experiment is provided in Listing \ref{lst:scenario 1}.
 
-As the configuration file shows, Alice's mining strategy is the fastest because the parameters of \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} are all set to 1. On the contrary, Bob's and Charlie's parameters are both higher than Alice's parameters. The parameters of network delay are all set to 1. Hence, the blockchain network is stable and fast and it only takes 1 second to publish the blocks to neighbors. For transactions, we defined a sequence of transactions which interval is 1 second.
+As the configuration file shows, Alice's mining strategy is the fastest because the parameters of \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} are all set to 1. On the contrary, Bob's and Charlie's parameters are both higher than Alice's parameters. The parameters of network delay are all set to 1. Hence, the blockchain network is stable and fast and it only takes 1 second to publish the blocks to neighbors. For transactions, we defined a sequence of transactions which interval is 1 second. (see Table \ref{tab:the parameters of the mining strategy in scenario I})
+
+\begin{table}[htb]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \begin{tabular}{ M{8cm}|M{2cm} } 
+            \hline
+            \multicolumn{2}{c}{\textbf{Alice's Mining Strategy}} \\
+            \hline
+            \textit{Strategy Name} & \multicolumn{1}{c}{\textit{Value}} \\
+            \hline
+            Mining Time & 1 \\ 
+            Minimum Value of Transactions & 1 \\ 
+            Number of Mined Transactions & 1 \\
+            \hline
+        \end{tabular}
+    \end{subtable}
+    \begin{subtable}{\textwidth}
+        \centering
+        \begin{tabular}{ M{8cm}|M{2cm} } 
+            \hline
+            \multicolumn{2}{c}{\textbf{Bob's Mining Strategy}} \\
+            \hline
+            \textit{Strategy Name} & \multicolumn{1}{c}{\textit{Value}} \\
+            \hline
+            Mining Time & 5 \\ 
+            Minimum Value of Transactions & 4 \\ 
+            Number of Mined Transactions & 3 \\
+            \hline
+        \end{tabular}
+    \end{subtable}
+    \begin{subtable}{\textwidth}
+        \centering
+        \begin{tabular}{ M{8cm}|M{2cm} } 
+            \hline
+            \multicolumn{2}{c}{\textbf{Charlie's Mining Strategy}} \\
+            \hline
+            \textit{Strategy Name} & \multicolumn{1}{c}{\textit{Value}} \\
+            \hline
+            Mining Time & 6 \\ 
+            Minimum Value of Transactions & 7 \\ 
+            Number of Mined Transactions & 2 \\
+            \hline
+        \end{tabular}
+    \end{subtable}
+    \caption{The parameters of the mining strategy in scenario I.}
+    \label{tab:the parameters of the mining strategy in scenario I}
+\end{table}
+
+Figure \ref{fig:alice was a fast miner} demonstrates the results of the above configuration. Although some transactions have large number of rewards, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all the 10 transactions were mined by Alice, even if Bob tried to mine a block at the seventh layer. 
 
 \begin{figure}[htb]
     \centering
@@ -15,15 +65,49 @@ As the configuration file shows, Alice's mining strategy is the fastest because 
     \label{fig:alice was a fast miner}
 \end{figure}
 
-Figure \ref{fig:alice was a fast miner} demonstrates the results of the above configuration. Although some transactions have large number of rewards, Alice still dominated the blockchain system because of her fast mining strategy. As a result, all the 10 transactions were mined by Alice, even if Bob tried to mine a block at the seventh layer. 
+\clearpage
 
 In summary, this scenario shows the competition between the miners. As our expectation, the mining strategy with the lowest \textit{mining time}, \textit{minimum value of transactions}, and \textit{number of mined transactions} is the fastest one. Additionally, it shows that the orphaned blocks were handled by the visualization application correctly, as the fast miner still worked on the correct blockchain data structure.
 
 \section{Scenario II: Multiple Forks}
 
-In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks has high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario.
+In the second scenario, there are three miners who have the similar computing power and mining strategies, and compete with each other for a long time. Because the spread of blocks has high delay, miners add their own blocks to the blockchain much more quickly than others do. Thus, each miner considers her own blockchain is the longest one, and the competition continues. Listing \ref{lst:scenario 2} is the configuration file for this scenario. (see Table \ref{tab:the parameters of the mining strategy and the network delay in scenario II})
 
 In the configuration file, Alice's, Bob's and Charlie's parameters of the mining strategy are set to the same value. Therefore, it is expected that the three miners will always mine at the same time. The parameters of the network delay are higher than the parameters of \textit{mining time} to simulate the bad network conditions between three miners. The sequence of transactions is the same as Listing \ref{lst:scenario 1}.
+
+\begin{table}[htb]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \begin{tabular}{ M{8cm}|M{2cm} } 
+            \hline
+            \multicolumn{2}{c}{\textbf{Miner's Mining Strategy}} \\
+            \hline
+            \textit{Strategy Name} & \multicolumn{1}{c}{\textit{Value}} \\
+            \hline
+            Mining Time & 1 \\ 
+            Minimum Value of Transactions & 1 \\ 
+            Number of Mined Transactions & 1 \\
+            \hline
+        \end{tabular}
+    \end{subtable}
+    \begin{subtable}{\textwidth}
+        \centering
+        \begin{tabular}{ M{8cm}|M{2cm} } 
+            \hline
+            \multicolumn{2}{c}{\textbf{Network Delay}} \\
+            \hline
+            \textit{Strategy Name} & \multicolumn{1}{c}{\textit{Value}} \\
+            \hline
+            Alice and Bob & 3 \\ 
+            Alice and Charlie & 3 \\ 
+            Bob and Charlie & 3 \\ 
+            \hline
+        \end{tabular}
+    \end{subtable}
+    \caption{The parameters of the mining strategy and the network delay in scenario II.}
+    \label{tab:the parameters of the mining strategy and the network delay in scenario II}
+\end{table}
 
 \begin{figure}[htb]
     \centering
