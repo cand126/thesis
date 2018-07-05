@@ -121,7 +121,9 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
 \begin{itemize}
     \vspace*{\fill}
     \item \textbf{Agent} (Table \ref{tab:class agent}) \\
-        \texttt{Agent} is from the multi-agent system framework, Eve. It establishes the communication channel for the agents. In the implementation, the channel is opened with HTTP protocols. It makes sending and receiving transactions and blocks very simple. 
+        \texttt{Agent} is from the multi-agent system framework, Eve \cite{eve}. Eve establishes the communication channel for the agents. An agent can subscribe to different types of channels. In the implementation, the channel is opened with HTTP protocols. 
+        
+        After the agent connects to the channel, it can receive messages from other agents in the same channel. It can also send messages to a specific agent or all agents on the channel. In summary, it makes sending and receiving transactions and blocks very simple and robust. 
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -147,7 +149,10 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \clearpage
     \vspace*{\fill}
     \item \textbf{AbstractNode} (Table \ref{tab:class abstractNode}) \\
-        It defines the common properties and methods of its children. \texttt{AbstractNode} is an abstract class, so it is not allowed to instantiate instances from it. In contrast, we can create nodes from the children of \texttt{AbstractNode}, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}
+        \texttt{AbstractNode} defines the common properties and methods of its children, i.e., \texttt{TransactionGenerator}, \texttt{Miner}, and \texttt{Nonminer}. It is an abstract class, so it is not allowed to instantiate instances from it. In contrast, we can create nodes from the children of \texttt{AbstractNode}.
+        
+        The common properties contain ids, blockchain data structures, and the neighbors. The common methods contain receiving and sending transactions and blocks, initializing the blockchain data structures, managing neighbors, and calculating the total reward.
+
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -180,7 +185,7 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \clearpage
     \vspace*{\fill}
     \item \textbf{TransactionGenerator} (Table \ref{tab:class transactiongenerator}) \\
-        It is responsible for generating and publishing transactions. There should be only one transaction generator in the blockchain system. Furthermore, the neighbors of the transaction generator only contain the miners.
+        \texttt{TransactionGenerator} is responsible for generating and publishing transactions. There should be only one transaction generator in the blockchain system, so all the transactions can be scheduled in a single point. Furthermore, the neighbors of the transaction generator only contain the miners because only miners will receive the transactions.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -206,6 +211,8 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \vspace*{\fill}
     \item \textbf{Miner} (Table \ref{tab:class miner}) \\
         \texttt{Miner} is the main role in the blockchain system. It generates and publishes blocks through the blockchain network. Therefore, it controls all the mining processes in the blockchain system.
+
+        Besides common properties, a miner has its own color and nickname. It also has a transaction pool to store all pending transactions. The parameters of the mining strategy and the total reward are also included. \texttt{Miner} contains important algorithms such as selecting candidate transactions and mining. (see Section \ref{sec:algorithms})
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -265,7 +272,9 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \clearpage
     \vspace*{\fill}
     \item \textbf{Simulator} (Table \ref{tab:class simulator}) \\
-        \texttt{Simulator} is the only master of the blockchain system. It is able to add and update nodes, and retrieve information from the blockchain system.
+        \texttt{Simulator} is the only master of the blockchain system. It is able to add and update nodes, and retrieve information from the blockchain system. In other words, the blockchain system is managed by the simulator.
+
+        The simulator remembers all the nodes in the blockchain system. The methods contain initializing and resetting the blockchain system, adding and deleting nodes, retrieving information, and updating the parameters of the mining strategy and the network delay.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -302,7 +311,7 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \clearpage
     \vspace*{\fill}
     \item \textbf{Watchdog} (Table \ref{tab:class watchdog}) \\
-        \texttt{Watchdog} monitors the blockchain system. When a mining activity starts, it keeps notifying the visualizer until the end.
+        \texttt{Watchdog} monitors the blockchain system. When a mining activity starts, it keeps notifying the visualizer until the end. Any mining event will trigger the watchdog at the end of the method, and the watchdog will handle these events and send the data to the Visualizer through WebSocket.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -322,7 +331,9 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \clearpage
     \vspace*{\fill}
     \item \textbf{Visualizer} (Table \ref{tab:class visualizer}) \\
-        \texttt{Visualizer} uses 3D graphical library to render the blockchain visualization. It maintains all miners' and nonminers' canvases and the mouse events which enable users to drag, zoom in, and zoom out the canvases.
+        \texttt{Visualizer} uses the 3D graphical library to render the blockchain visualization. It maintains all miners' and nonminers' canvases and the mouse events which enable users to drag, zoom in, and zoom out the canvases.
+
+        The visualizer remembers all the canvases and the parameters of visualization such as the margin and the size of blocks. The methods contain initialization, mouse events, and the updating of the animation.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
@@ -363,6 +374,8 @@ Figure \ref{fig:class diagram} demonstrates the class diagram of the visualizati
     \vspace*{\fill}
     \item \textbf{GUI} (Table \ref{tab:class gui}) \\
         The graphical user interface is responsible for the interactions with users, including uploading files, updating the blockchain system, publishing transactions, and resetting the blockchain system.
+
+        The GUI is divided into two parts, visualization and settings. The visualization page is the main part of our application, and users can manage the application in the settings page.
         \begin{table}[htb]
             \centering
             \begin{tabular}{ M{3.5cm}|m{8cm} } 
